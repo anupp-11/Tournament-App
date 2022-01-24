@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
+import { TeamModel } from 'src/app/models/team.model';
+import { NotificationService } from 'src/app/services/notification.service';
 import { TeamsService } from 'src/app/services/teams.service';
 
 @Component({
@@ -14,6 +16,7 @@ export class TeamFormComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<TeamFormComponent>,
     public service: TeamsService,
+    public notificationService : NotificationService
   ) {
     debugger;
     this.teams=[];
@@ -25,43 +28,34 @@ export class TeamFormComponent implements OnInit {
     debugger;
   }
   onClose(){
-    const a = this.service.teamForm;
-    console.log(a);
-    debugger;
+    
     this.dialogRef.close();
   }
 
   onSubmit() {
-    console.log("Submitted",this.service.teamForm.value);
     this.team = Object.assign(this.team, this.service.teamForm.value);
-    console.log(this.team);
-    if (!this.service.teamForm.get('$key').value){
+    if (!this.service.teamForm.get('id').value){
       
-      this.addBuyers(this.team);
-      //this.notificationService.success('Buyer Info Added');
+      this.addTeam(this.team);
+      this.notificationService.success('Team Added');
       console.log("Add Vitra");
     }
     else{
       console.log("Inside update");
-      //this.updateData(this.team);
-      //this.notificationService.success('Buyer Info Updated');
+      this.editTeam(this.team);
+      this.notificationService.success('Team Updated');
     }  
     this.onClose();
     //this.displayBuyers();
   }
 
-  addBuyers(team){
-    
-    if(localStorage.getItem('teamdatas')){
-      this.teams=JSON.parse(localStorage.getItem('teamdatas'));
-      //this.dataSource = new MatTableDataSource(this.teams);
-      team.$key = this.teams.length;
-      this.teams=[team, ...this.teams];
-    }else{
-      
-      this.teams = [team];
-    }
-    localStorage.setItem('teamdatas', JSON.stringify(this.teams));
+  async editTeam(team:TeamModel){
+    const response = await this.service.editTeam(this.service.teamForm.get('id').value,team);
+    console.log("Edit Team Response",response);
   }
 
+  async addTeam(team:TeamModel){
+    const response = await this.service.addTeam(team);
+    console.log("Add Team Response",response);
+  }
 }

@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { ClipboardModule } from 'ngx-clipboard';
-
+import { MaterialModule } from "./../../material/material.module";
 import { AdminLayoutRoutes } from './admin-layout.routing';
 import { DashboardComponent } from '../../pages/dashboard/dashboard.component';
 import { IconsComponent } from '../../pages/icons/icons.component';
@@ -21,7 +21,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     FormsModule,
     HttpClientModule,
     NgbModule,
-    ClipboardModule
+    ClipboardModule,
+    MaterialModule
   ],
   declarations: [
     DashboardComponent,

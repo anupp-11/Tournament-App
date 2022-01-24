@@ -7,6 +7,7 @@ import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TeamFormComponent } from './team-form/team-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MaterialModule } from "./../material/material.module";
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     RouterModule,
     NgbModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MaterialModule,
   ],
   declarations: [
     FooterComponent,

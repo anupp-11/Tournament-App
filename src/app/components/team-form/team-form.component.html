@@ -13,11 +13,11 @@
       </div>
      
       <div class="card-body">
-        <form  [formGroup]="service.teamForm" (ngSubmit)="onSubmit()">
+        <form  [formGroup]="service.teamForm" >
           <h6 class="heading-small text-muted mb-4">Team information</h6>
 
 
-          <input type="hidden" formControlName="$key">
+          <input type="hidden" formControlName="id">
 
 
           <div class="pl-lg-4">
@@ -98,7 +98,7 @@
       <div class="card-header bg-white border-0">
         <div class="row align-items-center">
           <div class="col-md-12 text-right">
-            <button type="submit" class="btn btn-sm btn-primary">SAVE</button>
+            <button type="button" (click)="onSubmit()" class="btn btn-sm btn-primary">SAVE</button>
           </div>
         </div>
       </div>
