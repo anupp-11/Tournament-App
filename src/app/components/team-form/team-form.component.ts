@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormArray } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { TeamModel } from 'src/app/models/team.model';
 import { NotificationService } from 'src/app/services/notification.service';
@@ -34,21 +35,26 @@ export class TeamFormComponent implements OnInit {
 
   onSubmit() {
     this.team = Object.assign(this.team, this.service.teamForm.value);
+    debugger;
     if (!this.service.teamForm.get('id').value){
       
       this.addTeam(this.team);
-      this.notificationService.success('Team Added');
+      this.notificationService.success('Team Added Successfully');
       console.log("Add Vitra");
     }
     else{
       console.log("Inside update");
       this.editTeam(this.team);
-      this.notificationService.success('Team Updated');
+      this.notificationService.success('Team Updated Successfully');
     }  
     this.onClose();
     //this.displayBuyers();
   }
 
+  addSkillButtonClick(): void {
+    (<FormArray>this.service.teamForm.get('players')).push(this.service.addPlayerFormGroup());
+  }
+  
   async editTeam(team:TeamModel){
     const response = await this.service.editTeam(this.service.teamForm.get('id').value,team);
     console.log("Edit Team Response",response);

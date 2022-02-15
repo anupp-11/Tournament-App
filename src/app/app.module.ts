@@ -2,7 +2,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-// import { MaterialModule } from "./material/material.module";
+import { MaterialModule } from "./material/material.module";
 import { AppComponent } from './app.component';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
@@ -12,6 +12,9 @@ import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
 import {MatDialogModule} from '@angular/material/dialog';
 import { TeamsService } from './services/teams.service';
+import { GroupsService } from './services/groups.service';
+import { PlayComponent } from './pages/play/play.component';
+import { InGameComponent } from './in-game/in-game.component';
 
 
 
@@ -26,16 +29,18 @@ import { TeamsService } from './services/teams.service';
     AppRoutingModule,
     MatDialogModule,
     ReactiveFormsModule,
-    // MaterialModule
+    MaterialModule
 
   ],
   declarations: [
     AppComponent,
     AdminLayoutComponent,
     AuthLayoutComponent,
+    PlayComponent,
+    InGameComponent,
     
   ],
-  providers: [TeamsService],
+  providers: [TeamsService,GroupsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

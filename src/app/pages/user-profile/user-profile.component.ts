@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
+import { GroupModel } from 'src/app/models/groups.model';
 import { TeamModel } from 'src/app/models/team.model';
+import { GroupsService } from 'src/app/services/groups.service';
+import { NotificationService } from 'src/app/services/notification.service';
 import { TeamsService } from 'src/app/services/teams.service';
 
 @Component({
@@ -11,9 +14,15 @@ import { TeamsService } from 'src/app/services/teams.service';
   styleUrls: ['./user-profile.component.scss']
 })
 export class UserProfileComponent implements OnInit {
+
+  name: string;
   isProcessing : boolean = false;
+  isAdding : boolean = false;
   objectKeys = Object.keys;
-  constructor(private dialog:MatDialog,public teamService :TeamsService) { }
+  constructor(private dialog:MatDialog,
+    public teamService :TeamsService,
+    public groupService : GroupsService,
+    public notificationService : NotificationService) { }
 
   dataSource: MatTableDataSource<TeamModel>;
   displayedColumns: string[] = ['id', 'fullName', 'shortName','players','button'];
@@ -45,6 +54,17 @@ export class UserProfileComponent implements OnInit {
     if (key !== -1) {
       this.teams.splice(key, 1);
     }
+  }
+
+  async onSubmit(){
+    this.isAdding = true;
+    const data : GroupModel = {
+      name : this.name,
+      teams : this.teams
+    };
+    this.groupService.addGroup(data);
+    this.isAdding = false;
+    this.notificationService.success('Group Created Successfully');
   }
   
 

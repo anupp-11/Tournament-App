@@ -46,29 +46,60 @@
           <hr class="my-4" />
           <!-- Address -->
           <h6 class="heading-small text-muted mb-4">Player information</h6>
-          <div class="pl-lg-4">
+
+          <div>
+            <div class="col-12 text-right">
+              <button type="button" (click)="addSkillButtonClick()" class="btn btn-sm btn-primary">Add Player</button>
+            </div>
             <div class="row">
-              <div class="col-lg-4">
-                <div class="form-group">
-                  <label class="form-control-label" for="input-player1Name">Player1 InGameName</label>
-                  <input formControlName="player1Name" type="text" id="input-player1Name" class="form-control form-control-alternative" placeholder="Ex. DRSMafiyaninja">
-                </div>
-              </div>
-              <div class="col-lg-4">
-                <div class="form-group">
-                  <label class="form-control-label" for="input-player2Name">Player2 InGameName</label>
-                  <input formControlName="player2Name" type="text" id="input-player2Name" class="form-control form-control-alternative" placeholder="Ex. DRSNima">
-                </div>
-              </div>
-              <div class="col-lg-4">
-                <div class="form-group">
-                  <label class="form-control-label" for="input-player3Name">Player3 InGameName</label>
-                  <input formControlName="player3Name" type="text" id="input-player3Name" class="form-control form-control-alternative" placeholder="Ex. DRSAJ">
+              <div class="col-lg-4" formArrayName="players" *ngFor="let player of service.teamForm.get('players')['controls']; let i = index">
+                <div [formGroupName] = "i" >
+                  
+                  <div class="form-group">
+                    <label class="form-control-label" for="playerName">Player {{i+1}} Name</label>
+                    <input formControlName="playerName" type="text" id="playerName" class="form-control form-control-alternative" placeholder="Player Name">
+                  </div>
+
+                  <div class="form-group">
+                    <input type="hidden" formControlName="isAlive">
+                  </div>
+
+                  <div class="form-group">
+                    <input type="hidden" formControlName="isPlaying">
+                  </div>
+
+                  <div class="form-group">
+                    <input type="hidden" formControlName="kills">
+                  </div>
+
                 </div>
               </div>
             </div>
           </div>
-          <div class="pl-lg-4">
+         
+          <!-- <div formArrayName="players" class="pl-lg-4">
+            <div class="row">
+              <div formGroupName="0" class="col-lg-4">
+                <div class="form-group">
+                  <label class="form-control-label" for="playerName1">Player1 InGameName</label>
+                  <input formControlName="playerName" type="text" id="playerName1" class="form-control form-control-alternative" placeholder="Ex. DRSMafiyaninja">
+                </div>
+              </div>
+              <div formGroupName="1" class="col-lg-4">
+                <div class="form-group">
+                  <label class="form-control-label" for="playerName2">Player2 InGameName</label>
+                  <input formControlName="playerName" type="text" id="playerName2" class="form-control form-control-alternative" placeholder="Ex. DRSNima">
+                </div>
+              </div>
+              <div formGroupName="2" class="col-lg-4">
+                <div class="form-group">
+                  <label class="form-control-label" for="playerName3">Player3 InGameName</label>
+                  <input formControlName="playerName" type="text" id="playerName3" class="form-control form-control-alternative" placeholder="Ex. DRSAJ">
+                </div>
+              </div>
+            </div>
+          </div> -->
+          <!-- <div class="pl-lg-4">
             <div class="row">
               <div class="col-lg-4">
                 <div class="form-group">
@@ -89,7 +120,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
          
         </form>
       </div>

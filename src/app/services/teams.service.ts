@@ -1,14 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { TeamModel } from '../models/team.model';
 
 export interface ITeamsService {
   addTeam(team: TeamModel): Promise<TeamModel>;
-  editTeam(id: number, team: TeamModel): Promise<TeamModel>;
-  getTeam(id: number): Promise<TeamModel>;
+  editTeam(id: string, team: TeamModel): Promise<TeamModel>;
+  getTeam(id: string): Promise<TeamModel>;
   getAll(): Promise<TeamModel[]>;
-  deleteTeam(id: number): Promise<TeamModel>;
+  deleteTeam(id: string): Promise<TeamModel>;
 }
 
 @Injectable({
@@ -19,17 +19,23 @@ export class TeamsService implements ITeamsService{
   constructor(private fb : FormBuilder,private httpClient: HttpClient) { }
 
   teamForm = this.fb.group({
-    id: new FormControl("",[Validators.required, this.isValid]),
-    fullName: new FormControl("",[Validators.required, this.isValid]),
-    shortName: new FormControl("",[Validators.required, this.isValid]),
-    player1Name: new FormControl("",[Validators.required, this.isValid]),
-    player2Name: new FormControl("",[Validators.required, this.isValid]),
-    player3Name: new FormControl("",[Validators.required, this.isValid]),
-    player4Name: new FormControl("",[Validators.required, this.isValid]),
-    player5Name: new FormControl("",[]),
-    player6Name: new FormControl("",[]),
-    
-  })
+    id: ["",[Validators.required, this.isValid]],
+    fullName: ["",[Validators.required, this.isValid]],
+    shortName: ["",[Validators.required, this.isValid]],
+    kills: ["",[]],
+    players : this.fb.array([
+      this.addPlayerFormGroup()
+    ])  
+  });
+
+  addPlayerFormGroup(): FormGroup{
+    return this.fb.group({
+      playerName : ['',[]],
+      isAlive : ["",[]],
+      isPlaying: ["",[]],
+      kills : ["",[]]
+    })
+  }
   addTeam = async (team: TeamModel): Promise<TeamModel> => {
     const response = await this.httpClient
       .post<TeamModel>(
@@ -40,7 +46,7 @@ export class TeamsService implements ITeamsService{
     return response;
   };
 
-  getTeam = async (id: number): Promise<TeamModel> => {
+  getTeam = async (id: string): Promise<TeamModel> => {
     const response = await this.httpClient
       .get<TeamModel>(
         'https://610c159c66dd8f0017b76c6d.mockapi.io/teams/' + id
@@ -56,7 +62,7 @@ export class TeamsService implements ITeamsService{
     return response;
   };
 
-  deleteTeam = async (id: number): Promise<TeamModel> => {
+  deleteTeam = async (id: string): Promise<TeamModel> => {
     const response = await this.httpClient
       .delete<TeamModel>(
         'https://610c159c66dd8f0017b76c6d.mockapi.io/teams/' + id
@@ -65,7 +71,7 @@ export class TeamsService implements ITeamsService{
     return response;
   };
 
-  editTeam = async (id: number, team: TeamModel): Promise<TeamModel> => {
+  editTeam = async (id: string, team: TeamModel): Promise<TeamModel> => {
     const response = await this.httpClient
       .put<TeamModel>(
         'https://610c159c66dd8f0017b76c6d.mockapi.io/teams/' + id,

@@ -8,6 +8,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TeamFormComponent } from './team-form/team-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from "./../material/material.module";
+import { StartMatchComponent } from './start-match/start-match.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { MaterialModule } from "./../material/material.module";
     FooterComponent,
     NavbarComponent,
     SidebarComponent,
-    TeamFormComponent
+    TeamFormComponent,
+    StartMatchComponent
   ],
   exports: [
     FooterComponent,

@@ -54,7 +54,7 @@ export class TablesComponent implements OnInit {
   
   }
 
-  async deleteTeam(id:number){
+  async deleteTeam(id:string){
     const response = await this.teamService.deleteTeam(id);
     this.displayTable();
     console.log(response);
