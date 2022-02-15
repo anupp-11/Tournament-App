@@ -1,7 +1,4 @@
-
-
-
-export class TeamModel{
+export class TeamModel {
   fullName: string;
   shortName: string;
   kills:string;
@@ -14,4 +11,3 @@ export class Player{
   isPlaying:boolean;
   kills:string;
 }
-

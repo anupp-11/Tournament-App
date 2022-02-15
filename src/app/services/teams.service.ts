@@ -12,11 +12,10 @@ export interface ITeamsService {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
-export class TeamsService implements ITeamsService{
-
-  constructor(private fb : FormBuilder,private httpClient: HttpClient) { }
+export class TeamsService implements ITeamsService {
+  constructor(private fb: FormBuilder, private httpClient: HttpClient) {}
 
   teamForm = this.fb.group({
     id: ["",[Validators.required, this.isValid]],
@@ -38,57 +37,47 @@ export class TeamsService implements ITeamsService{
   }
   addTeam = async (team: TeamModel): Promise<TeamModel> => {
     const response = await this.httpClient
-      .post<TeamModel>(
-        'https://610c159c66dd8f0017b76c6d.mockapi.io/teams',
-        team
-      )
+      .post<TeamModel>("https://localhost:5001/Team/add", team)
       .toPromise();
     return response;
   };
 
   getTeam = async (id: string): Promise<TeamModel> => {
     const response = await this.httpClient
-      .get<TeamModel>(
-        'https://610c159c66dd8f0017b76c6d.mockapi.io/teams/' + id
-      )
+      .get<TeamModel>("https://localhost:5001/Team/get-by-id/" + id)
       .toPromise();
     return response;
   };
 
   getAll = async (): Promise<TeamModel[]> => {
     const response = await this.httpClient
-      .get<TeamModel[]>('https://610c159c66dd8f0017b76c6d.mockapi.io/teams')
+      .get<TeamModel[]>("https://localhost:5001/Team/get-all")
       .toPromise();
     return response;
   };
 
   deleteTeam = async (id: string): Promise<TeamModel> => {
     const response = await this.httpClient
-      .delete<TeamModel>(
-        'https://610c159c66dd8f0017b76c6d.mockapi.io/teams/' + id
-      )
+      .delete<TeamModel>(`{baseUri}/Team/delete/{id}`)
       .toPromise();
     return response;
   };
 
   editTeam = async (id: string, team: TeamModel): Promise<TeamModel> => {
     const response = await this.httpClient
-      .put<TeamModel>(
-        'https://610c159c66dd8f0017b76c6d.mockapi.io/teams/' + id,
-        team
-      )
+      .put<TeamModel>(`{baseUri}/Team/update/{id}`, team)
       .toPromise();
     return response;
   };
- 
- isValid(control: FormControl){
-  if (control.value<1) {
-    return { inValid: true };
-  }
-  return null;
- }
 
- populateForm(team){
-  this.teamForm.setValue(team);
-}
+  isValid(control: FormControl) {
+    if (control.value < 1) {
+      return { inValid: true };
+    }
+    return null;
+  }
+
+  populateForm(team) {
+    this.teamForm.setValue(team);
+  }
 }

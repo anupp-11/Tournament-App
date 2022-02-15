@@ -6,30 +6,27 @@ import { NotificationService } from 'src/app/services/notification.service';
 import { TeamsService } from 'src/app/services/teams.service';
 
 @Component({
-  selector: 'app-team-form',
-  templateUrl: './team-form.component.html',
-  styleUrls: ['./team-form.component.scss']
+  selector: "app-team-form",
+  templateUrl: "./team-form.component.html",
+  styleUrls: ["./team-form.component.scss"],
 })
 export class TeamFormComponent implements OnInit {
-
   team: any = {};
-  teams : any;
+  teams: any;
   constructor(
     public dialogRef: MatDialogRef<TeamFormComponent>,
     public service: TeamsService,
-    public notificationService : NotificationService
+    public notificationService: NotificationService
   ) {
     debugger;
-    this.teams=[];
-   }
+    this.teams = [];
+  }
 
   ngOnInit() {
-
     this.service.teamForm;
     debugger;
   }
-  onClose(){
-    
+  onClose() {
     this.dialogRef.close();
   }
 
@@ -41,8 +38,7 @@ export class TeamFormComponent implements OnInit {
       this.addTeam(this.team);
       this.notificationService.success('Team Added Successfully');
       console.log("Add Vitra");
-    }
-    else{
+    } else {
       console.log("Inside update");
       this.editTeam(this.team);
       this.notificationService.success('Team Updated Successfully');
@@ -60,8 +56,8 @@ export class TeamFormComponent implements OnInit {
     console.log("Edit Team Response",response);
   }
 
-  async addTeam(team:TeamModel){
+  async addTeam(team: TeamModel) {
     const response = await this.service.addTeam(team);
-    console.log("Add Team Response",response);
+    console.log("Add Team Response", response);
   }
 }
