@@ -44,8 +44,9 @@ export class StartMatchComponent implements OnInit {
     console.log("Group:", this.group);
   }
   onSubmit() {
-    this.team = Object.assign(this.team, this.teamService.teamForm.value);
-    console.log("Updated Group",this.team);
+    
+    //this.team = Object.assign(this.team, this.teamService.teamForm.value);
+    console.log("Updated Group",this.group);
     debugger;
     
   }

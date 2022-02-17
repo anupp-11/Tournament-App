@@ -35,8 +35,8 @@
                     <div class="row">
                       <h3 class="mb-0">{{player.playerName}}</h3>
                       &nbsp;&nbsp;
-                      <form class="example-form" [formGroup]="formGroup">
-                        <mat-slide-toggle formControlName="playing">Playing</mat-slide-toggle>
+                      <form class="example-form">
+                        <mat-slide-toggle [(ngModel)]="player.isPlaying">Playing</mat-slide-toggle>
                       </form>
                     </div>
                   </div>

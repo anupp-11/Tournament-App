@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { TeamModel } from '../models/team.model';
+import { ResponseModel, TeamModel } from '../models/team.model';
 
 export interface ITeamsService {
   addTeam(team: TeamModel): Promise<TeamModel>;
@@ -18,9 +18,10 @@ export class TeamsService implements ITeamsService {
   constructor(private fb: FormBuilder, private httpClient: HttpClient) {}
 
   teamForm = this.fb.group({
-    id: ["",[Validators.required, this.isValid]],
+    id: [null,[]],
     fullName: ["",[Validators.required, this.isValid]],
     shortName: ["",[Validators.required, this.isValid]],
+    teamLogo: ["",[]],
     kills: ["",[]],
     players : this.fb.array([
       this.addPlayerFormGroup()
@@ -29,15 +30,17 @@ export class TeamsService implements ITeamsService {
 
   addPlayerFormGroup(): FormGroup{
     return this.fb.group({
+      id: [null,[]],
       playerName : ['',[]],
-      isAlive : ["",[]],
-      isPlaying: ["",[]],
+      isAlive : [true,[]],
+      isPlaying: [true,[]],
       kills : ["",[]]
     })
   }
   addTeam = async (team: TeamModel): Promise<TeamModel> => {
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
     const response = await this.httpClient
-      .post<TeamModel>("https://localhost:5001/Team/add", team)
+      .post<TeamModel>("https://localhost:5001/Team/add", team, {headers: headers})
       .toPromise();
     return response;
   };
@@ -51,21 +54,21 @@ export class TeamsService implements ITeamsService {
 
   getAll = async (): Promise<TeamModel[]> => {
     const response = await this.httpClient
-      .get<TeamModel[]>("https://localhost:5001/Team/get-all")
+      .get<ResponseModel>("https://localhost:5001/Team/get-all")
       .toPromise();
-    return response;
+    return response.result;
   };
 
   deleteTeam = async (id: string): Promise<TeamModel> => {
     const response = await this.httpClient
-      .delete<TeamModel>(`{baseUri}/Team/delete/{id}`)
+      .delete<TeamModel>(`{baseUri}/Team/delete/${id}`)
       .toPromise();
     return response;
   };
 
   editTeam = async (id: string, team: TeamModel): Promise<TeamModel> => {
     const response = await this.httpClient
-      .put<TeamModel>(`{baseUri}/Team/update/{id}`, team)
+      .put<TeamModel>(`{baseUri}/Team/update/${id}`, team)
       .toPromise();
     return response;
   };

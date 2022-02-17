@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { GroupModel } from '../models/groups.model';
+import { ResponseModel } from '../models/team.model';
 
 export interface IGroupsService {
   addGroup(team: GroupModel): Promise<GroupModel>;
@@ -20,7 +21,7 @@ export class GroupsService implements IGroupsService{
   addGroup = async (team: GroupModel): Promise<GroupModel> => {
     const response = await this.httpClient
       .post<GroupModel>(
-        'https://610c159c66dd8f0017b76c6d.mockapi.io/group',
+        'https://localhost:5001/Group/add',
         team
       )
       .toPromise();
@@ -29,24 +30,24 @@ export class GroupsService implements IGroupsService{
 
   getGroup = async (id: string): Promise<GroupModel> => {
     const response = await this.httpClient
-      .get<GroupModel>(
-        'https://610c159c66dd8f0017b76c6d.mockapi.io/group/' + id
+      .get<ResponseModel>(
+        'https://localhost:5001/Group/get-by-id/' + id
       )
       .toPromise();
-    return response;
+    return response.result;
   };
 
   getAll = async (): Promise<GroupModel[]> => {
     const response = await this.httpClient
-      .get<GroupModel[]>('https://610c159c66dd8f0017b76c6d.mockapi.io/group')
+      .get<ResponseModel>('https://localhost:5001/Group/get-all')
       .toPromise();
-    return response;
+    return response.result;
   };
 
   deleteGroup = async (id: string): Promise<GroupModel> => {
     const response = await this.httpClient
       .delete<GroupModel>(
-        'https://610c159c66dd8f0017b76c6d.mockapi.io/group/' + id
+        'https://localhost:5001/Group/delete/' + id
       )
       .toPromise();
     return response;
@@ -55,7 +56,7 @@ export class GroupsService implements IGroupsService{
   editGroup = async (id: string, team: GroupModel): Promise<GroupModel> => {
     const response = await this.httpClient
       .put<GroupModel>(
-        'https://610c159c66dd8f0017b76c6d.mockapi.io/group/' + id,
+        'https://localhost:5001/Group/update/' + id,
         team
       )
       .toPromise();
