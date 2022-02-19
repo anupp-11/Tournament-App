@@ -22,7 +22,9 @@ export class TeamsService implements ITeamsService {
     fullName: ["",[Validators.required, this.isValid]],
     shortName: ["",[Validators.required, this.isValid]],
     teamLogo: ["",[]],
-    kills: ["",[]],
+    kills: [0,[]],
+    isEliminated:false,
+    eliminationOrder:0,
     players : this.fb.array([
       this.addPlayerFormGroup()
     ])  
@@ -34,7 +36,8 @@ export class TeamsService implements ITeamsService {
       playerName : ['',[]],
       isAlive : [true,[]],
       isPlaying: [true,[]],
-      kills : ["",[]]
+      kills : [0,[]],
+      domination: [false,[]],
     })
   }
   addTeam = async (team: TeamModel): Promise<TeamModel> => {

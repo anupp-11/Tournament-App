@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { GroupModel } from 'src/app/models/groups.model';
+import { MatchModel } from 'src/app/models/match.model';
 import { TeamModel } from 'src/app/models/team.model';
 import { GroupsService } from 'src/app/services/groups.service';
+import { MatchService } from 'src/app/services/matches.service';
 import { TeamsService } from 'src/app/services/teams.service';
 
 @Component({
@@ -18,11 +20,12 @@ export class StartMatchComponent implements OnInit {
   id:string;
   group : GroupModel;
   formGroup: FormGroup;
-  constructor(formBuilder: FormBuilder,public route : ActivatedRoute,public groupService :GroupsService,public teamService: TeamsService) {
-    this.formGroup = formBuilder.group({
-      playing: ['',],
-    });
-   }
+  constructor(formBuilder: FormBuilder,
+    public route : ActivatedRoute,
+    public groupService :GroupsService,
+    public matchService :MatchService,
+    public teamService: TeamsService,
+    private router: Router) {}
 
   dataSource: MatTableDataSource<TeamModel>;
   displayedColumns: string[] = ['id', 'name', 'players'];
@@ -43,10 +46,29 @@ export class StartMatchComponent implements OnInit {
     this.dataSource = new MatTableDataSource(this.group.teams);
     console.log("Group:", this.group);
   }
-  onSubmit() {
-    
-    //this.team = Object.assign(this.team, this.teamService.teamForm.value);
+  async onSubmit() {
+    const match :MatchModel={
+      id:"",
+      name:"",
+      groups:[this.group]
+    }
+    const resp = await this.matchService.addMatch(match);
     console.log("Updated Group",this.group);
+    debugger;
+    
+  }
+
+  async onStart() {
+    const match :MatchModel={
+      id:"",
+      name:"",
+      groups:[this.group]
+    }
+    const resp = await this.matchService.addMatch(match);
+    
+    console.log("Updated Group",resp);
+    this.router.navigate(['/ingame',resp.id]);
+    //[routerLink]="['/ingame',id]"
     debugger;
     
   }

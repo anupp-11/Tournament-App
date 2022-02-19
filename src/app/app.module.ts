@@ -15,6 +15,9 @@ import { TeamsService } from './services/teams.service';
 import { GroupsService } from './services/groups.service';
 import { PlayComponent } from './pages/play/play.component';
 import { InGameComponent } from './in-game/in-game.component';
+import { AlertMessageComponent } from './alert-message/alert-message.component';
+import { AlertService } from './alert-message/alert.service';
+import { NotifierService } from './services/notifier.service';
 
 
 
@@ -38,9 +41,10 @@ import { InGameComponent } from './in-game/in-game.component';
     AuthLayoutComponent,
     PlayComponent,
     InGameComponent,
+    AlertMessageComponent,
     
   ],
-  providers: [TeamsService,GroupsService],
+  providers: [TeamsService,GroupsService,AlertService,NotifierService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

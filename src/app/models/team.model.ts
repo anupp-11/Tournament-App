@@ -3,8 +3,10 @@ export class TeamModel {
   fullName: string;
   shortName: string;
   teamLogo:string;
-  kills:string;
+  kills:number;
   players: Player[];
+  isEliminated:Boolean;
+  eliminationOrder:number;
 }
 
 export class Player{
@@ -12,7 +14,8 @@ export class Player{
   playerName:string;
   isAlive:boolean;
   isPlaying:boolean;
-  kills:string;
+  kills:number;
+  domination:boolean;
 }
 export class ResponseModel{
   result:any;

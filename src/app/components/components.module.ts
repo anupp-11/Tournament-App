@@ -9,6 +9,7 @@ import { TeamFormComponent } from './team-form/team-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from "./../material/material.module";
 import { StartMatchComponent } from './start-match/start-match.component';
+import { ResultComponent } from './result/result.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { StartMatchComponent } from './start-match/start-match.component';
     NavbarComponent,
     SidebarComponent,
     TeamFormComponent,
-    StartMatchComponent
+    StartMatchComponent,
+    ResultComponent
   ],
   exports: [
     FooterComponent,
