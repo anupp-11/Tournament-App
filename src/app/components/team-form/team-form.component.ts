@@ -12,12 +12,14 @@ import { TeamsService } from 'src/app/services/teams.service';
 })
 export class TeamFormComponent implements OnInit {
   team: any = {};
+  teamLogo:string 
   teams: any;
   constructor(
     public dialogRef: MatDialogRef<TeamFormComponent>,
     public service: TeamsService,
     public notificationService: NotificationService
   ) {
+    this.teamLogo = "";
     debugger;
     this.teams = [];
   }
@@ -26,12 +28,50 @@ export class TeamFormComponent implements OnInit {
     this.service.teamForm;
     debugger;
   }
+
+  fileChangeEvent(fileInput: any) {
+  
+    if (fileInput.target.files && fileInput.target.files[0]) {
+        
+
+        
+
+      
+        const reader = new FileReader();
+        reader.onload = (e: any) => {
+            const image = new Image();
+            image.src = e.target.result;
+            image.onload = rs => {
+                const img_height = rs.currentTarget['height'];
+                const img_width = rs.currentTarget['width'];
+
+                console.log(img_height, img_width);
+
+
+                
+                    const imgBase64Path = e.target.result;
+                    this.teamLogo = imgBase64Path;
+                   
+                    // this.previewImagePath = imgBase64Path;
+                
+            };
+        };
+
+        reader.readAsDataURL(fileInput.target.files[0]);
+    }
+}
+
+
+
   onClose() {
     this.dialogRef.close();
   }
 
   onSubmit() {
+    
+
     this.team = Object.assign(this.team, this.service.teamForm.value);
+    this.team.teamLogo = this.teamLogo;
     debugger;
     if (!this.service.teamForm.get('id').value){
       

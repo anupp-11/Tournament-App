@@ -40,7 +40,7 @@
               <div class="form-group">
                 <label class="form-control-label" for="input-logo">Team Logo</label>
                 <input formControlName="logo" type="file" id="input-logo" class="form-control form-control-alternative"
-                  placeholder="Upload Logo" />
+                  placeholder="Upload Logo" (change)="fileChangeEvent($event)" />
               </div>
             </div>
           </div>
