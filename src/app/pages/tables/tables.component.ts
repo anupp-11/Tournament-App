@@ -4,6 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { TeamFormComponent } from 'src/app/components/team-form/team-form.component';
 import { TeamModel } from 'src/app/models/team.model';
 import { TeamsService } from 'src/app/services/teams.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-tables',
@@ -12,11 +13,12 @@ import { TeamsService } from 'src/app/services/teams.service';
 })
 export class TablesComponent implements OnInit {
 
+  imgUrl : string;
   isProcessing : boolean = false;
-  constructor(private dialog:MatDialog,public teamService :TeamsService) { }
+  constructor(private dialog:MatDialog,public teamService :TeamsService,private domSanitizer: DomSanitizer) { }
 
   dataSource: MatTableDataSource<TeamModel>;
-  displayedColumns: string[] = ['id', 'fullName', 'shortName','players','button'];
+  displayedColumns: string[] = ['logo', 'fullName', 'shortName','players','button'];
   teamList : TeamModel[];
 
   ngOnInit() {
@@ -77,5 +79,7 @@ export class TablesComponent implements OnInit {
       }
     });
   }
+
+  
 
 }

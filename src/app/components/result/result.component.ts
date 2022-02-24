@@ -79,7 +79,7 @@ export class ResultComponent implements OnInit {
       let team = element.players.forEach((player, pIndex) => {
         if (player.kills > 0) {
            console.log("First Blood", element.fullName, player.playerName);
-           this.alertMsg(element.fullName, player.playerName,"FIRSTBLOOD");
+           this.alertMsg(element.fullName, player.playerName,"FIRSTBLOOD",element.teamLogo);
            this.flag=false;
           }
       })
@@ -91,7 +91,7 @@ export class ResultComponent implements OnInit {
       let team = element.players.forEach((player, pIndex) => {
         if (player.kills == 3 && !this.matchUpdated.groups[0].teams[index].players[pIndex].domination) {
           console.log("Domination", element.fullName, player.playerName);
-          this.alertMsg(element.fullName, player.playerName,"DOMINATION");
+          this.alertMsg(element.fullName, player.playerName,"DOMINATION",element.teamLogo);
           //  this.match.groups[0].teams[index].players[pIndex].domination=true;
 
           this.matchUpdated.groups[0].teams[index].players[pIndex].domination = true;
@@ -100,11 +100,12 @@ export class ResultComponent implements OnInit {
     });
   }
 
-  alertMsg(teamName,playerName,type){
+  alertMsg(teamName,playerName,type,teamLogo){
     const msg = {
       teamName : teamName,
       playerName : playerName,
-      type:type
+      type:type,
+      teamLogo:teamLogo
     }
     this.notifierService.showNotification(msg);
     // this.sport.showAlert('success');

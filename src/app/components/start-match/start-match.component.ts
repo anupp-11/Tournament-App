@@ -16,6 +16,7 @@ import { TeamsService } from 'src/app/services/teams.service';
 })
 export class StartMatchComponent implements OnInit {
 
+  name: string;
   team: any = {};
   id:string;
   group : GroupModel;
@@ -49,7 +50,7 @@ export class StartMatchComponent implements OnInit {
   async onSubmit() {
     const match :MatchModel={
       id:"",
-      name:"",
+      name:this.name,
       groups:[this.group]
     }
     const resp = await this.matchService.addMatch(match);
@@ -61,7 +62,7 @@ export class StartMatchComponent implements OnInit {
   async onStart() {
     const match :MatchModel={
       id:"",
-      name:"",
+      name:this.name,
       groups:[this.group]
     }
     const resp = await this.matchService.addMatch(match);

@@ -2,13 +2,8 @@ p {
     font-family: Lato;
   }
   
-  .alert  {
-    border:1px solid rgba(0, 0, 0, 0.2);
-    border-radius: 0.25rem;
-    padding: 2rem;
-    background: #fff;
-    color: #f65656;
-    box-shadow: 0 5px 10px -5px rgba(0, 0, 0, 0.5);
-    transition:  all 0.2s ease-in-out;
-  }
   
+  * {
+    margin: 0;
+    padding: 0;
+  }

@@ -94,9 +94,9 @@
            
             <table mat-table [dataSource]="dataSource" class="table align-items-center table-flush">
         
-              <ng-container matColumnDef="id">
-                <th mat-header-cell *matHeaderCellDef> No. </th>
-                <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+              <ng-container matColumnDef="logo">
+                <th mat-header-cell *matHeaderCellDef> Logo </th>
+                <td mat-cell *matCellDef="let element"><img src = "{{element.teamLogo}}" style="height: 50px;width: 50px;" /></td>
               </ng-container>
             
               <ng-container matColumnDef="fullName">

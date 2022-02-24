@@ -25,7 +25,7 @@ export class UserProfileComponent implements OnInit {
     public notificationService : NotificationService) { }
 
   dataSource: MatTableDataSource<TeamModel>;
-  displayedColumns: string[] = ['id', 'fullName', 'shortName','players','button'];
+  displayedColumns: string[] = ['logo', 'fullName', 'shortName','players','button'];
   teamList : TeamModel[];
   teams : Array<TeamModel>=[];
   len = -1;

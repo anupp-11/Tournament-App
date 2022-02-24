@@ -16,24 +16,23 @@
         <div class="card-header border-0">
           <div class="row align-items-center">
             <div class="col-4">
-              <h3 class="mb-0">Start Match - {{match.groups[0].name}}</h3>
+              <h3 class="mb-0">Game Controller - {{match.groups[0].name}} - {{match.name}}</h3>
+            </div>
+            <div class="col-8 text-right">
+              <button [routerLink]="[ '/result',id]" href="" target="_blank" class="btn btn-sm btn-primary">View Result</button>
             </div>
           </div>
-          <div class="col-8 text-right">
-            <button [routerLink]="[ '/result',id]" class="btn btn-sm btn-primary">View Result</button>
-          </div>
+          
         </div>
 
         <div *ngFor="let team of match.groups[0].teams; let teamindex = index;" class="card shadow"
           style="margin: 10px;padding: 10px;">
           <div class="card-header border-0">
             <div class="row align-items-center">
+              <img src = "{{team.teamLogo}}" style="height: 50px;width: 50px; border-radius: 25px;" />
               <div class="col-4">
                 <h3 class="mb-0">{{team.fullName}} - {{team.shortName}}</h3>
               </div>
-
-
-
             </div>
           </div>
           <div class="card-body border-0">
