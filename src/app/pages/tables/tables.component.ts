@@ -50,7 +50,7 @@ export class TablesComponent implements OnInit {
         if (data) {
           //this.ve
         } else {
-          this.displayTable()
+          this.displayTable();
         }
       });
   
@@ -75,7 +75,7 @@ export class TablesComponent implements OnInit {
       if (data) {
         //this.ve
       } else {
-        this.displayTable()
+        this.displayTable();
       }
     });
   }

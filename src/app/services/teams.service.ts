@@ -24,6 +24,7 @@ export class TeamsService implements ITeamsService {
     teamLogo: ["",[]],
     kills: [0,[]],
     isEliminated:false,
+    isEliminatedMsg:false,
     eliminationOrder:0,
     players : this.fb.array([
       this.addPlayerFormGroup()
@@ -64,14 +65,14 @@ export class TeamsService implements ITeamsService {
 
   deleteTeam = async (id: string): Promise<TeamModel> => {
     const response = await this.httpClient
-      .delete<TeamModel>(`{baseUri}/Team/delete/${id}`)
+      .get<TeamModel>(`https://localhost:5001/Team/delete/${id}`)
       .toPromise();
     return response;
   };
 
   editTeam = async (id: string, team: TeamModel): Promise<TeamModel> => {
     const response = await this.httpClient
-      .put<TeamModel>(`{baseUri}/Team/update/${id}`, team)
+      .post<TeamModel>(`{baseUri}/Team/update/${id}`, team)
       .toPromise();
     return response;
   };

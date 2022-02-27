@@ -5,6 +5,7 @@ import { AlertService } from 'src/app/alert-message/alert.service';
 import { MatchModel } from 'src/app/models/match.model';
 import { MatchService } from 'src/app/services/matches.service';
 import { NotifierService } from 'src/app/services/notifier.service';
+import { SettingsService } from 'src/app/services/settings.services';
 
 @Component({
   selector: 'app-result',
@@ -20,19 +21,26 @@ export class ResultComponent implements OnInit {
   flag:boolean;
   updated:boolean;
   matchUpdated:  MatchModel;
+  settings: any = {};
 
   constructor(public route: ActivatedRoute, 
     public matchService: MatchService,
     public sport: AlertService,
-    private notifierService: NotifierService) { 
+    private notifierService: NotifierService,
+    public settingService: SettingsService,) { 
     this.flag=true;
     this.updated=false;
   }
 
-  ngOnInit(): void {
+  async ngOnInit() {
     const sub = this.route.params.subscribe(params => {
       this.id = params['id'];
     });
+
+    const response = await this.settingService.get();
+    if(response){
+      this.settings = response;
+    }
     
     const source = interval(1000);
     this.subscription = source.subscribe(val => this.getMatch(this.id));
@@ -53,6 +61,7 @@ export class ResultComponent implements OnInit {
     } 
 
     this.threeKills();
+    this.teamEliminated();
   }
   ngOnDestroy() {
     this.subscription && this.subscription.unsubscribe();
@@ -99,6 +108,19 @@ export class ResultComponent implements OnInit {
       })
     });
   }
+  // console.log("Team Eliminated",element.fullName);
+  //           this.alertMsg(element.fullName, "","TEAMELIMINATED",element.teamLogo);
+  //           this.matchUpdated.groups[0].teams[index].isEliminatedMsg = true; 
+
+  teamEliminated() {
+    this.match.groups[0].teams.forEach((team, index) => {
+      if (team.isEliminated && !this.matchUpdated.groups[0].teams[index].isEliminatedMsg) {
+        console.log("Team Eliminated",team.fullName);
+        this.alertMsg(team.fullName, "","TEAMELIMINATED",team.teamLogo);
+        this.matchUpdated.groups[0].teams[index].isEliminatedMsg = true; 
+      }
+    });
+  }
 
   alertMsg(teamName,playerName,type,teamLogo){
     const msg = {
@@ -113,7 +135,8 @@ export class ResultComponent implements OnInit {
 
   getUrl()
 {
-  return "url('assets/img/alive.png')";
+  let url = `url(${this.settings.aliveCounterBgImage})`;
+  return url;
 }
 
 }

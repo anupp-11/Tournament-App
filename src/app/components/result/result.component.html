@@ -32,7 +32,8 @@
                         <div *ngFor="let player of team.players;">
                             <div *ngIf="player.isPlaying && player.isAlive">
                                 <div
-                                    style="height: 20px;width: 5px;background-color: rgb(160, 136, 28);margin-inline: 2px;">
+                                    style="height: 20px;width: 5px;margin-inline: 2px;" 
+                                    [ngStyle]="{'background-color': settings.aliveColor}">
 
                                 </div>
                             </div>
@@ -42,7 +43,8 @@
 
                             <div *ngIf="player.isPlaying && !player.isAlive">
                                 <div
-                                    style="height: 20px;width: 5px;background-color: rgb(53, 53, 53);margin-inline: 2px;">
+                                    style="height: 20px;width: 5px;margin-inline: 2px;"
+                                    [ngStyle]="{'background-color': settings.deadColor}">
 
                                 </div>
                             </div>

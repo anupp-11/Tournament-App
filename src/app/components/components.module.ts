@@ -20,6 +20,7 @@ import { ResultComponent } from './result/result.component';
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
+
   ],
   declarations: [
     FooterComponent,

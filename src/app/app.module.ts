@@ -18,7 +18,7 @@ import { InGameComponent } from './in-game/in-game.component';
 import { AlertMessageComponent } from './alert-message/alert-message.component';
 import { AlertService } from './alert-message/alert.service';
 import { NotifierService } from './services/notifier.service';
-
+import {NgxImageCompressService} from 'ngx-image-compress';
 
 
 @NgModule({
@@ -32,7 +32,8 @@ import { NotifierService } from './services/notifier.service';
     AppRoutingModule,
     MatDialogModule,
     ReactiveFormsModule,
-    MaterialModule
+    MaterialModule,
+    
 
   ],
   declarations: [
@@ -44,7 +45,7 @@ import { NotifierService } from './services/notifier.service';
     AlertMessageComponent,
     
   ],
-  providers: [TeamsService,GroupsService,AlertService,NotifierService],
+  providers: [TeamsService,GroupsService,AlertService,NotifierService,NgxImageCompressService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

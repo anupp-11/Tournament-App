@@ -46,16 +46,15 @@ export class GroupsService implements IGroupsService{
 
   deleteGroup = async (id: string): Promise<GroupModel> => {
     const response = await this.httpClient
-      .delete<GroupModel>(
-        'https://localhost:5001/Group/delete/' + id
-      )
+      .get<GroupModel>(
+        `https://localhost:5001/Group/delete/${id}`)
       .toPromise();
     return response;
   };
 
   editGroup = async (id: string, team: GroupModel): Promise<GroupModel> => {
     const response = await this.httpClient
-      .put<GroupModel>(
+      .post<GroupModel>(
         'https://localhost:5001/Group/update/' + id,
         team
       )

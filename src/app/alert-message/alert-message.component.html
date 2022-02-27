@@ -1,4 +1,4 @@
-<div style="display: flex;flex-direction: row;">
+<div style="display: flex;flex-direction: row;" [ngStyle]="{'background-image': getUrl()}" >
   <div style="height:100px ;width: 102px;display: flex;flex-direction: row;align-items: center;justify-content: center;">
     <img src = "{{data.message.teamLogo}}" style="height: 90px;width: 90px;" />
   </div>
