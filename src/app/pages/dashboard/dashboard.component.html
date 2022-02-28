@@ -31,14 +31,14 @@
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label" for="input-fullName">Primary Color</label>
-                    <input formControlName="primaryColor" type="text" id="input-fullName"
+                    <input formControlName="primaryColor" [(ngModel)]="settings.primaryColor" type="text" id="input-fullName"
                       class="form-control form-control-alternative" placeholder="#FFFFFF" />
                   </div>
                 </div>
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label" for="input-shortName">Secondary Color</label>
-                    <input formControlName="secondaryColor" type="text" id="input-shortName"
+                    <input formControlName="secondaryColor" [(ngModel)]="settings.secondaryColor" type="text" id="input-shortName"
                       class="form-control form-control-alternative" placeholder="#FFFFFF" />
                   </div>
                 </div>
@@ -49,14 +49,14 @@
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label" for="input-fullName">Alive Color</label>
-                    <input formControlName="aliveColor" type="text" id="input-fullName"
+                    <input formControlName="aliveColor" [(ngModel)]="settings.aliveColor" type="text" id="input-fullName"
                       class="form-control form-control-alternative" placeholder="#FFFFFF" />
                   </div>
                 </div>
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label" for="input-shortName">Dead Color</label>
-                    <input formControlName="deadColor" type="text" id="input-shortName"
+                    <input formControlName="deadColor" type="text" [(ngModel)]="settings.deadColor" id="input-shortName"
                       class="form-control form-control-alternative" placeholder="#FFFFFF" />
                   </div>
                 </div>

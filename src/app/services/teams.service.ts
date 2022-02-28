@@ -28,6 +28,7 @@ export class TeamsService implements ITeamsService {
     eliminationOrder:0,
     players : this.fb.array([
       this.addPlayerFormGroup()
+
     ])  
   });
 
@@ -72,7 +73,7 @@ export class TeamsService implements ITeamsService {
 
   editTeam = async (id: string, team: TeamModel): Promise<TeamModel> => {
     const response = await this.httpClient
-      .post<TeamModel>(`{baseUri}/Team/update/${id}`, team)
+      .post<TeamModel>(`https://localhost:5001/Team/update`, team)
       .toPromise();
     return response;
   };
@@ -85,6 +86,31 @@ export class TeamsService implements ITeamsService {
   }
 
   populateForm(team) {
-    this.teamForm.setValue(team);
+    let form = this.fb.group({
+      id:team.id,
+      fullName: team.fullName,
+      shortName: team.shortName,
+      teamLogo: team.teamLogo,
+      kills:  team.kills,
+      isEliminated: team.isEliminated,
+      isEliminatedMsg: team.isEliminatedMsg,
+      eliminationOrder: team.eliminationOrder,
+      players : this.populatePlayer(team.players)
+    });
+    this.teamForm = form;
+  }
+  populatePlayer(players): FormArray{
+    let formArray = this.fb.array([]);
+    players.forEach(player => {
+      formArray.push(this.fb.group({
+        id: player.id,
+        playerName: player.playerName,
+        isAlive: player.isAlive,
+        isPlaying: player.isPlaying,
+        kills: player.kills,
+        domination: player.domination
+      }))
+    });
+    return formArray;
   }
 }

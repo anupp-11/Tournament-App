@@ -64,7 +64,7 @@ export class TablesComponent implements OnInit {
 
   }
   editTeam(team){
-    console.log("Id of team to be edited:",team);
+    console.log("Id of team to be edited:",team.id);
     this.teamService.populateForm(team);
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
