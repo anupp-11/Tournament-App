@@ -15,7 +15,14 @@
     </div>
 
     <div class="card-body">
-      <form [formGroup]="service.teamForm">
+      <div  *ngIf="isProcessing" class="spinner-container">
+        <mat-progress-spinner
+          color="primary" 
+          mode="indeterminate">
+        </mat-progress-spinner>
+      </div>
+      <form *ngIf="!isProcessing" [formGroup]="service.teamForm">
+        
         <h6 class="heading-small text-muted mb-4">Team information</h6>
 
         <input type="hidden" formControlName="id" />

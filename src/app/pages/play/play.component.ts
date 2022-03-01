@@ -10,26 +10,30 @@ import { GroupsService } from 'src/app/services/groups.service';
   styleUrls: ['./play.component.scss']
 })
 export class PlayComponent implements OnInit {
-  isProcessing : boolean = false;
-  constructor(private dialog:MatDialog,public groupService :GroupsService) { }
+  isProcessing: boolean = false;
+  constructor(private dialog: MatDialog, public groupService: GroupsService) { }
 
   dataSource: MatTableDataSource<GroupModel>;
-  displayedColumns: string[] = ['id', 'name', 'teamsSize','button'];
-  groupList : GroupModel[];
-  length:number = null;
+  displayedColumns: string[] = ['id', 'name', 'teamsSize', 'button'];
+  groupList: GroupModel[];
+  length: number = null;
   ngOnInit() {
     this.displayTable();
   }
 
-  async displayTable(){
-    this.isProcessing = true;
-    this.groupList = await this.groupService.getAll();
-    this.isProcessing = false;
-    this.dataSource = new MatTableDataSource(this.groupList);
-    console.log("Team List:",this.groupList);
+  async displayTable() {
+    try {
+      this.isProcessing = true;
+      this.groupList = await this.groupService.getAll();
+      this.isProcessing = false;
+      this.dataSource = new MatTableDataSource(this.groupList);
+    } catch (error) {
+      this.isProcessing = false;
+      console.log(error);
+    }
   }
 
-  getLength(teams){
+  getLength(teams) {
     return teams.length;
   }
 
@@ -38,7 +42,7 @@ export class PlayComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  async deleteGroup(id:string){
+  async deleteGroup(id: string) {
     const response = await this.groupService.deleteGroup(id);
     this.displayTable();
   }

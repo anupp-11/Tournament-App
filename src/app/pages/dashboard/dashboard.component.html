@@ -10,6 +10,8 @@
 <div class="container-fluid mt--7">
   <div class="row">
 
+    
+
     <div class="col-xl-6">
       <div class="card shadow">
         <div class="card-header bg-transparent">
@@ -21,7 +23,13 @@
           </div>
         </div>
         <div class="card-body">
-          <form [formGroup]="service.settingForm">
+          <div *ngIf="isProcessing"  class="spinner-container">
+            <mat-progress-spinner
+              color="primary" 
+              mode="indeterminate">
+            </mat-progress-spinner>
+          </div>
+          <form [formGroup]="service.settingForm" *ngIf="!isProcessing" >
             <h6 class="heading-small text-muted mb-4">Colors</h6>
 
             <input type="hidden" formControlName="id" />
@@ -30,14 +38,14 @@
               <div class="row">
                 <div class="col-lg-6">
                   <div class="form-group">
-                    <label class="form-control-label" for="input-fullName">Primary Color</label>
+                    <label class="form-control-label" for="input-fullName">Alive Text Color</label>
                     <input formControlName="primaryColor" [(ngModel)]="settings.primaryColor" type="text" id="input-fullName"
                       class="form-control form-control-alternative" placeholder="#FFFFFF" />
                   </div>
                 </div>
                 <div class="col-lg-6">
                   <div class="form-group">
-                    <label class="form-control-label" for="input-shortName">Secondary Color</label>
+                    <label class="form-control-label" for="input-shortName">Dead Text Color</label>
                     <input formControlName="secondaryColor" [(ngModel)]="settings.secondaryColor" type="text" id="input-shortName"
                       class="form-control form-control-alternative" placeholder="#FFFFFF" />
                   </div>
@@ -48,14 +56,14 @@
 
                 <div class="col-lg-6">
                   <div class="form-group">
-                    <label class="form-control-label" for="input-fullName">Alive Color</label>
+                    <label class="form-control-label" for="input-fullName">Alive Bar Color</label>
                     <input formControlName="aliveColor" [(ngModel)]="settings.aliveColor" type="text" id="input-fullName"
                       class="form-control form-control-alternative" placeholder="#FFFFFF" />
                   </div>
                 </div>
                 <div class="col-lg-6">
                   <div class="form-group">
-                    <label class="form-control-label" for="input-shortName">Dead Color</label>
+                    <label class="form-control-label" for="input-shortName">Dead Bar Color</label>
                     <input formControlName="deadColor" type="text" [(ngModel)]="settings.deadColor" id="input-shortName"
                       class="form-control form-control-alternative" placeholder="#FFFFFF" />
                   </div>
@@ -70,7 +78,7 @@
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label" for="alive">Alive Counter Image</label>
-                    <input formControlName="aliveCounterBgImage" type="file" id="alive"
+                    <input  type="file" id="alive"
                       class="form-control form-control-alternative" placeholder="Upload Logo"
                       (change)="fileChangeEvent($event)" />
                   </div>
@@ -78,7 +86,7 @@
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label" for="domination">Domination Alert Image</label>
-                    <input formControlName="dominationBgImage" type="file" id="domination"
+                    <input  type="file" id="domination"
                       class="form-control form-control-alternative" placeholder="Upload Logo"
                       (change)="fileChangeEvent2($event)" />
                   </div>
@@ -91,7 +99,7 @@
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label" for="eliminated">Eliminated Alert</label>
-                    <input formControlName="eliminatedBgImage" type="file" id="eliminated"
+                    <input  type="file" id="eliminated"
                       class="form-control form-control-alternative" placeholder="Upload Logo"
                       (change)="fileChangeEvent3($event)" />
                   </div>
@@ -123,16 +131,22 @@
           </div>
         </div>
         <div class="card-body">
-          <div>
+          <div *ngIf="isProcessing"  class="spinner-container">
+            <mat-progress-spinner
+              color="primary" 
+              mode="indeterminate">
+            </mat-progress-spinner>
+          </div>
+          <div *ngIf="!isProcessing">
             <h6 class="heading-small text-muted mb-4">Colors</h6>
             <div class="pl-lg-4">
               <div class="row">
                 <div class="col-lg-6" style="display: flex;flex-direction: row;">
-                  <label class="form-control-label">Primary Color :</label>
+                  <label class="form-control-label">Alive Text Color :</label>
                   <div style="height: 20px;width: 50px;border-radius: 5px;margin-left: 10px;" [ngStyle]="{'background-color': settings.primaryColor}"> </div>
                 </div>
                 <div class="col-lg-6" style="display: flex;flex-direction: row;">
-                  <label class="form-control-label">Secondary Color :</label>
+                  <label class="form-control-label">Dead Text Color :</label>
                   <div style="height: 20px;width: 50px;border-radius: 5px;margin-left: 10px;" [ngStyle]="{'background-color': settings.secondaryColor}"> </div>
                 </div>
               </div>
@@ -140,11 +154,11 @@
               <div class="row">
 
                 <div class="col-lg-6" style="display: flex;flex-direction: row;">
-                  <label class="form-control-label">Alive Color :</label>
+                  <label class="form-control-label">Alive Bar Color :</label>
                   <div style="height: 20px;width: 50px;border-radius: 5px;margin-left: 10px;" [ngStyle]="{'background-color': settings.aliveColor}"> </div>
                 </div>
                 <div class="col-lg-6" style="display: flex;flex-direction: row;">
-                  <label class="form-control-label">Dead Color :</label>
+                  <label class="form-control-label">Dead Bar Color :</label>
                   <div style="height: 20px;width: 50px;border-radius: 5px;margin-left: 10px;" [ngStyle]="{'background-color': settings.deadColor}"> </div>
                 </div>
 
@@ -193,6 +207,8 @@
         </div>
       </div>
     </div>
+
+    
 
   </div>
 

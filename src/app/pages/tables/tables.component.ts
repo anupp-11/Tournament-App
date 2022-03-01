@@ -25,12 +25,18 @@ export class TablesComponent implements OnInit {
     this.displayTable();
   }
 
-  async displayTable(){
+  async displayTable() {
     this.isProcessing = true;
-    this.teamList = await this.teamService.getAll();
-    this.isProcessing = false;
-    this.dataSource = new MatTableDataSource(this.teamList);
-    console.log("Team List:",this.teamList);
+    try {
+      this.teamList = await this.teamService.getAll();
+      this.isProcessing = false;
+      this.dataSource = new MatTableDataSource(this.teamList);
+
+    } catch (error) {
+      console.log(error);
+      this.isProcessing = false;
+    }
+
   }
 
   applyFilter(event: Event) {
@@ -40,7 +46,6 @@ export class TablesComponent implements OnInit {
 
   onAddTeamClick(){
     const dialogConfig = new MatDialogConfig();
-    //dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = '60%';
     dialogConfig.maxHeight= '100vh';
@@ -48,7 +53,6 @@ export class TablesComponent implements OnInit {
       .afterClosed()
       .subscribe((data) => {
         if (data) {
-          //this.ve
         } else {
           this.displayTable();
         }

@@ -20,6 +20,7 @@ export class Player{
 }
 export class ResponseModel{
   result:any;
+  isSuccess:any;
 }
 
 export class SettingModel {

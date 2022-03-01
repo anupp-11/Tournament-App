@@ -21,6 +21,7 @@ export class StartMatchComponent implements OnInit {
   id:string;
   group : GroupModel;
   formGroup: FormGroup;
+  isProcessing: boolean = false;
   constructor(formBuilder: FormBuilder,
     public route : ActivatedRoute,
     public groupService :GroupsService,
@@ -43,21 +44,28 @@ export class StartMatchComponent implements OnInit {
   }
 
   async getGroup(id:string){
-    this.group = await this.groupService.getGroup(id);
-    this.dataSource = new MatTableDataSource(this.group.teams);
-    console.log("Group:", this.group);
-  }
-  async onSubmit() {
-    const match :MatchModel={
-      id:"",
-      name:this.name,
-      groups:[this.group]
+    try {
+      this.isProcessing = true;
+      this.group = await this.groupService.getGroup(id);
+      this.dataSource = new MatTableDataSource(this.group.teams);
+      this.isProcessing = false;
+    } catch (error) {
+      this.isProcessing = false;
+      console.log(error);
     }
-    const resp = await this.matchService.addMatch(match);
-    console.log("Updated Group",this.group);
-    debugger;
-    
   }
+  // async onSubmit() {
+  //   const match :MatchModel={
+  //     id:"",
+  //     name:this.name,
+  //     groups:[this.group]
+  //   }
+
+  //   const resp = await this.matchService.addMatch(match);
+  //   console.log("Updated Group",this.group);
+  //   debugger;
+    
+  // }
 
   async onStart() {
     const match :MatchModel={
@@ -65,12 +73,15 @@ export class StartMatchComponent implements OnInit {
       name:this.name,
       groups:[this.group]
     }
-    const resp = await this.matchService.addMatch(match);
-    
-    console.log("Updated Group",resp);
-    this.router.navigate(['/ingame',resp.id]);
-    //[routerLink]="['/ingame',id]"
+    try {
+      this.isProcessing = true;
+      const resp = await this.matchService.addMatch(match);
+      this.isProcessing = false;
+      this.router.navigate(['/ingame',resp.id]);
     debugger;
-    
+    } catch (error) {
+      this.isProcessing = false;
+      console.log(error);
+    }
   }
 }

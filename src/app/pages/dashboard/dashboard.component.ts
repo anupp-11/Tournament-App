@@ -14,21 +14,35 @@ export class DashboardComponent implements OnInit {
   eliminatedImg: string;
   setting: any = {};
   settings: any = {};
+  isProcessing: boolean;
   constructor(
     public service: SettingsService,
     public notificationService: NotificationService
   ) {
+    this.isProcessing=true;
     this.aliveImg = "";
     this.dominationImg = "";
     this.eliminatedImg = "";
   }
   async ngOnInit() {
-    const response = await this.service.get();
-    if(response){
-      this.settings = response;
-      this.service.populateForm(this.settings);
+    try {
+      this.isProcessing = true;
+      const response = await this.service.get();
+      console.log("Response", response);
+      if (response) {
+        console.log("Response", response);
+        this.settings = response;
+        this.service.populateForm(this.settings);
+        this.isProcessing = false;
+      }
+
+    } catch (error) {
+      console.log(error);
+      this.isProcessing = false;
     }
   }
+
+
 
   fileChangeEvent(fileInput: any) {
     if (fileInput.target.files && fileInput.target.files[0]) {
@@ -43,7 +57,7 @@ export class DashboardComponent implements OnInit {
       };
       reader.readAsDataURL(fileInput.target.files[0]);
     }
-    
+
   }
   fileChangeEvent2(fileInput: any) {
     if (fileInput.target.files && fileInput.target.files[0]) {
@@ -58,7 +72,7 @@ export class DashboardComponent implements OnInit {
       };
       reader.readAsDataURL(fileInput.target.files[0]);
     }
-    
+
   }
   fileChangeEvent3(fileInput: any) {
     if (fileInput.target.files && fileInput.target.files[0]) {
@@ -73,7 +87,7 @@ export class DashboardComponent implements OnInit {
       };
       reader.readAsDataURL(fileInput.target.files[0]);
     }
-    
+
   }
 
   async onSubmit() {
@@ -84,9 +98,9 @@ export class DashboardComponent implements OnInit {
     this.setting.dominationBgImage = this.dominationImg;
     this.setting.eliminatedBgImage = this.eliminatedImg;
     const c = this.setting;
-    console.log("Settings",c);
+    console.log("Settings", c);
     const response = await this.service.addSetting(this.setting);
-    console.log("Response",response);
+    console.log("Response", response);
 
     // if (!this.service.settingForm.get('id').value) {
 

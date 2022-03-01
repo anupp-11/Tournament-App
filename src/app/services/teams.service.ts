@@ -4,7 +4,7 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@ang
 import { ResponseModel, TeamModel } from '../models/team.model';
 
 export interface ITeamsService {
-  addTeam(team: TeamModel): Promise<TeamModel>;
+  addTeam(team: TeamModel): Promise<ResponseModel>;
   editTeam(id: string, team: TeamModel): Promise<TeamModel>;
   getTeam(id: string): Promise<TeamModel>;
   getAll(): Promise<TeamModel[]>;
@@ -19,8 +19,8 @@ export class TeamsService implements ITeamsService {
 
   teamForm = this.fb.group({
     id: [null,[]],
-    fullName: ["",[Validators.required, this.isValid]],
-    shortName: ["",[Validators.required, this.isValid]],
+    fullName: ["",[]],
+    shortName: ["",[]],
     teamLogo: ["",[]],
     kills: [0,[]],
     isEliminated:false,
@@ -42,10 +42,10 @@ export class TeamsService implements ITeamsService {
       domination: [false,[]],
     })
   }
-  addTeam = async (team: TeamModel): Promise<TeamModel> => {
+  addTeam = async (team: TeamModel): Promise<ResponseModel> => {
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
     const response = await this.httpClient
-      .post<TeamModel>("https://localhost:5001/Team/add", team, {headers: headers})
+      .post<ResponseModel>("https://localhost:5001/Team/add", team, {headers: headers})
       .toPromise();
     return response;
   };

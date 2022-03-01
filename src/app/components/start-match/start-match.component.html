@@ -1,83 +1,84 @@
 <div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
 
   <div class="container-fluid">
-    
+
   </div>
 </div>
-    
-    <!-- Page content -->
-    <div class="container-fluid mt--7">
-     
-    
-      <!-- Table -->
-      <div class="row">
-        <div class="col">
-          <div class="card shadow">
+
+<!-- Page content -->
+<div class="container-fluid mt--7">
+
+  <div *ngIf="isProcessing" class="spinner-container">
+    <mat-progress-spinner color="primary" mode="indeterminate">
+    </mat-progress-spinner>
+  </div>
+
+  <!-- Table -->
+  <div *ngIf="!isProcessing">
+    <div class="row">
+      <div class="col">
+        <div class="card shadow">
+          <div class="card-header border-0">
+            <div class="row align-items-center">
+              <div class="col-4">
+                <h3 class="mb-0">Start Match - {{group.name}}</h3>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="form-control-label" for="input-address">Match Name</label>
+                <input id="name" name="name" class="form-control form-control-alternative" placeholder="Group A"
+                  type="text" [(ngModel)]="name">
+              </div>
+            </div>
+          </div>
+
+
+          <div *ngFor="let team of group.teams" class="card shadow" style="margin: 10px;padding: 10px;">
             <div class="card-header border-0">
               <div class="row align-items-center">
+                <img src="{{team.teamLogo}}" style="height: 50px;width: 50px; border-radius: 25px;" />
                 <div class="col-4">
-                  <h3 class="mb-0">Start Match - {{group.name}}</h3>
-                </div>
-              </div>
-              <div class="col-md-4">
-                <div class="form-group">
-                  <label class="form-control-label" for="input-address">Match Name</label>
-                  <input id="name" name="name" class="form-control form-control-alternative" placeholder="Group A" type="text" [(ngModel)]="name">
+                  <h3 class="mb-0">{{team.fullName}} - {{team.shortName}}</h3>
                 </div>
               </div>
             </div>
-            
-           
-            <div *ngFor = "let team of group.teams" class="card shadow" style="margin: 10px;padding: 10px;">
-              <div class="card-header border-0">
-                <div class="row align-items-center">
-                  <img src = "{{team.teamLogo}}" style="height: 50px;width: 50px; border-radius: 25px;" />
-                  <div class="col-4">
-                    <h3 class="mb-0">{{team.fullName}} - {{team.shortName}}</h3>
+            <div class="card-body border-0">
+              <div class="row align-items-center">
+                <div *ngFor="let player of team.players" class="col-4">
+                  <div class="row">
+                    <h3 class="mb-0">{{player.playerName}}</h3>
+                    &nbsp;&nbsp;
+                    <form class="example-form">
+                      <mat-slide-toggle [(ngModel)]="player.isPlaying">Playing</mat-slide-toggle>
+                    </form>
                   </div>
                 </div>
               </div>
-              <div class="card-body border-0">
-                <div class="row align-items-center">
-                  <div *ngFor = "let player of team.players" class="col-4">
-                    <div class="row">
-                      <h3 class="mb-0">{{player.playerName}}</h3>
-                      &nbsp;&nbsp;
-                      <form class="example-form">
-                        <mat-slide-toggle [(ngModel)]="player.isPlaying">Playing</mat-slide-toggle>
-                      </form>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              
             </div>
 
-            
-            
 
-            
           </div>
+
+
+
+
+
         </div>
       </div>
-
-
-        <!-- <div  *ngIf="isProcessing" class="spinner-container">
-                <mat-progress-spinner
-                  color="primary" 
-                  mode="indeterminate">
-                </mat-progress-spinner>
-              </div> -->
-
-      <div class="card-header bg-white border-0">
-        <div class="row align-items-center">
-          <div class="col-md-12 text-right">
-            <!-- <button type="button" (click)="onSubmit()" class="btn btn-sm btn-primary">SAVE</button> -->
-            <button type="button" class="btn btn-sm btn-primary" (click)="onStart()">Start</button>
-          </div>
-        </div>
-      </div>
-      
     </div>
-    
+
+
+
+
+    <div class="card-header bg-white border-0">
+      <div class="row align-items-center">
+        <div class="col-md-12 text-right">
+          <!-- <button type="button" (click)="onSubmit()" class="btn btn-sm btn-primary">SAVE</button> -->
+          <button type="button" class="btn btn-sm btn-primary" (click)="onStart()">Start</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

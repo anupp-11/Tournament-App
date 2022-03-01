@@ -4,7 +4,7 @@ import { GroupModel } from '../models/groups.model';
 import { ResponseModel } from '../models/team.model';
 
 export interface IGroupsService {
-  addGroup(team: GroupModel): Promise<GroupModel>;
+  addGroup(team: GroupModel): Promise<ResponseModel>;
   editGroup(id: string, team: GroupModel): Promise<GroupModel>;
   getGroup(id: string): Promise<GroupModel>;
   getAll(): Promise<GroupModel[]>;
@@ -18,9 +18,9 @@ export class GroupsService implements IGroupsService{
 
   constructor(private httpClient: HttpClient) { }
 
-  addGroup = async (team: GroupModel): Promise<GroupModel> => {
+  addGroup = async (team: GroupModel): Promise<ResponseModel> => {
     const response = await this.httpClient
-      .post<GroupModel>(
+      .post<ResponseModel>(
         'https://localhost:5001/Group/add',
         team
       )

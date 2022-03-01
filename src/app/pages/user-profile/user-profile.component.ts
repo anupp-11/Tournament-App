@@ -16,29 +16,34 @@ import { TeamsService } from 'src/app/services/teams.service';
 export class UserProfileComponent implements OnInit {
 
   name: string;
-  isProcessing : boolean = false;
-  isAdding : boolean = false;
+  isProcessing: boolean = false;
+  isAdding: boolean = false;
   objectKeys = Object.keys;
-  constructor(private dialog:MatDialog,
-    public teamService :TeamsService,
-    public groupService : GroupsService,
-    public notificationService : NotificationService) { }
+  constructor(private dialog: MatDialog,
+    public teamService: TeamsService,
+    public groupService: GroupsService,
+    public notificationService: NotificationService) { }
 
   dataSource: MatTableDataSource<TeamModel>;
-  displayedColumns: string[] = ['logo', 'fullName', 'shortName','players','button'];
-  teamList : TeamModel[];
-  teams : Array<TeamModel>=[];
+  displayedColumns: string[] = ['logo', 'fullName', 'shortName', 'players', 'button'];
+  teamList: TeamModel[];
+  teams: Array<TeamModel> = [];
   len = -1;
   ngOnInit() {
-    
+
     this.displayTable();
   }
 
-  async displayTable(){
-    this.isProcessing = true;
-    this.teamList = await this.teamService.getAll();
-    this.isProcessing = false;
-    this.dataSource = new MatTableDataSource(this.teamList);
+  async displayTable() {
+    try {
+      this.isProcessing = true;
+      this.teamList = await this.teamService.getAll();
+      this.isProcessing = false;
+      this.dataSource = new MatTableDataSource(this.teamList);
+    } catch (error) {
+      this.isProcessing = false;
+      console.log(error);
+    }
   }
 
   applyFilter(event: Event) {
@@ -46,28 +51,39 @@ export class UserProfileComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  onAddTeams(team:TeamModel){
+  onAddTeams(team: TeamModel) {
     this.teams.push(team)
     this.len = this.teams.length;
   }
-  removeTeam(key:number){
+  removeTeam(key: number) {
     if (key !== -1) {
       this.teams.splice(key, 1);
     }
   }
 
-  async onSubmit(){
+  async onSubmit() {
     this.isAdding = true;
-    const data : GroupModel = {
-      name : this.name,
-      teams : this.teams
+    const data: GroupModel = {
+      name: this.name,
+      teams: this.teams
     };
-    this.groupService.addGroup(data);
-    this.isAdding = false;
-    this.notificationService.success('Group Created Successfully');
+    
+    try {
+      const response = await this.groupService.addGroup(data);
+      if(response.isSuccess){
+        this.name='';
+        this.teams=null;
+        this.notificationService.success('Group added successfully.');
+        this.isAdding = false;
+      }else{
+        this.notificationService.warn('Group not added.');
+        this.isAdding = false;
+      }
+      
+    } catch (error) {
+      this.isAdding = false;
+      this.notificationService.warn('Group creation failed. Please try again.');
+      console.log(error);
+    }
   }
-  
-
-  
-
 }
