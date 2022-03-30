@@ -8,6 +8,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TeamFormComponent } from './team-form/team-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from "./../material/material.module";
+import { StartMatchComponent } from './start-match/start-match.component';
+import { ResultComponent } from './result/result.component';
 
 
 @NgModule({
@@ -18,12 +20,15 @@ import { MaterialModule } from "./../material/material.module";
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
+
   ],
   declarations: [
     FooterComponent,
     NavbarComponent,
     SidebarComponent,
-    TeamFormComponent
+    TeamFormComponent,
+    StartMatchComponent,
+    ResultComponent
   ],
   exports: [
     FooterComponent,

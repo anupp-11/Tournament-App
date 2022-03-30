@@ -1,10 +1,35 @@
 export class TeamModel {
+  id:string;
   fullName: string;
   shortName: string;
-  player1Name: string;
-  player2Name: string;
-  player3Name: string;
-  player4Name: string;
-  player5Name: string;
-  player6Name: string;
+  teamLogo:string;
+  kills:number;
+  players: Player[];
+  isEliminated:Boolean;
+  isEliminatedMsg:Boolean;
+  eliminationOrder:number;
+}
+
+export class Player{
+  id:string;
+  playerName:string;
+  isAlive:boolean;
+  isPlaying:boolean;
+  kills:number;
+  domination:boolean;
+}
+export class ResponseModel{
+  result:any;
+  isSuccess:any;
+}
+
+export class SettingModel {
+  id:string;
+  aliveCounterBgImage: string;
+  dominationBgImage: string;
+  eliminatedBgImage: string;
+  primaryColor: string;
+  secondaryColor: string;
+  aliveColor: string;
+  deadColor: string;
 }

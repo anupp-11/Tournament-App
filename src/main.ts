@@ -4,9 +4,9 @@
 * Argon Dashboard Angular - v1.3.0
 =========================================================
 
-* Product Page: https://www.creative-tim.com/product/argon-dashboard-angular
+* Product Page: https://www.creative-tim.com/product/tournament-manager
 * Copyright 2019 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/argon-dashboard-angular/blob/master/LICENSE.md)
+* Licensed under MIT (https://github.com/creativetimofficial/tournament-manager/blob/master/LICENSE.md)
 
 * Coded by Creative Tim
 

@@ -6,6 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
 import { LoginComponent } from './pages/login/login.component';
+import { ResultComponent } from './components/result/result.component';
 
 const routes: Routes =[
   {
@@ -16,6 +17,11 @@ const routes: Routes =[
     path: 'dashboard',
     redirectTo: 'dashboard',
     pathMatch: 'full',
+  },
+  {
+    path: 'result/:id',
+    component:ResultComponent
+    
   },
    {
     path: '',

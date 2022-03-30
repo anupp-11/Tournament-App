@@ -7,11 +7,7 @@
         </div>
         <div class="col-4 text-right">
           <!-- <i class="fat-remove"></i> -->
-          <button
-            type="button"
-            (click)="onClose()"
-            class="btn btn-sm btn-primary"
-          >
+          <button type="button" (click)="onClose()" class="btn btn-sm btn-primary">
             Close
           </button>
         </div>
@@ -19,7 +15,14 @@
     </div>
 
     <div class="card-body">
-      <form [formGroup]="service.teamForm">
+      <div  *ngIf="isProcessing" class="spinner-container">
+        <mat-progress-spinner
+          color="primary" 
+          mode="indeterminate">
+        </mat-progress-spinner>
+      </div>
+      <form *ngIf="!isProcessing" [formGroup]="service.teamForm">
+        
         <h6 class="heading-small text-muted mb-4">Team information</h6>
 
         <input type="hidden" formControlName="id" />
@@ -28,139 +31,62 @@
           <div class="row">
             <div class="col-lg-4">
               <div class="form-group">
-                <label class="form-control-label" for="input-fullName"
-                  >Team FullName</label
-                >
-                <input
-                  formControlName="fullName"
-                  type="text"
-                  id="input-fullName"
-                  class="form-control form-control-alternative"
-                  placeholder="Ex. Da Real Soldiers"
-                />
+                <label class="form-control-label" for="input-fullName">Team FullName</label>
+                <input formControlName="fullName" type="text" id="input-fullName"
+                  class="form-control form-control-alternative" placeholder="Ex. Da Real Soldiers" />
               </div>
             </div>
             <div class="col-lg-4">
               <div class="form-group">
-                <label class="form-control-label" for="input-shortName"
-                  >Team Short Name</label
-                >
-                <input
-                  formControlName="shortName"
-                  type="text"
-                  id="input-shortName"
-                  class="form-control form-control-alternative"
-                  placeholder="Ex. DRS"
-                />
+                <label class="form-control-label" for="input-shortName">Team Short Name</label>
+                <input formControlName="shortName" type="text" id="input-shortName"
+                  class="form-control form-control-alternative" placeholder="Ex. DRS" />
               </div>
             </div>
             <div class="col-lg-4">
               <div class="form-group">
-                <label class="form-control-label" for="input-logo"
-                  >Team Logo</label
-                >
-                <input
-                  formControlName="logo"
-                  type="file"
-                  id="input-logo"
-                  class="form-control form-control-alternative"
-                  placeholder="Upload Logo"
-                />
+                <label class="form-control-label" for="input-logo">Team Logo</label>
+                <input formControlName="logo" accept=".jpg,.png,.jpeg" type="file" id="input-logo" class="form-control form-control-alternative"
+                  placeholder="Upload Logo" (change)="fileChangeEvent($event)" />
               </div>
             </div>
           </div>
-        </div>
-        <hr class="my-4" />
-        <!-- Address -->
-        <h6 class="heading-small text-muted mb-4">Player information</h6>
-        <div class="pl-lg-4">
-          <div class="row">
-            <div class="col-lg-4">
-              <div class="form-group">
-                <label class="form-control-label" for="input-player1Name"
-                  >Player1 InGameName</label
-                >
-                <input
-                  formControlName="player1Name"
-                  type="text"
-                  id="input-player1Name"
-                  class="form-control form-control-alternative"
-                  placeholder="Ex. DRSMafiyaninja"
-                />
-              </div>
+          <hr class="my-4" />
+          <!-- Address -->
+          <h6 class="heading-small text-muted mb-4">Player information</h6>
+
+          <div>
+            <div class="col-12 text-right">
+              <button type="button" (click)="addSkillButtonClick()" class="btn btn-sm btn-primary">Add Player</button>
             </div>
-            <div class="col-lg-4">
-              <div class="form-group">
-                <label class="form-control-label" for="input-player2Name"
-                  >Player2 InGameName</label
-                >
-                <input
-                  formControlName="player2Name"
-                  type="text"
-                  id="input-player2Name"
-                  class="form-control form-control-alternative"
-                  placeholder="Ex. DRSNima"
-                />
-              </div>
-            </div>
-            <div class="col-lg-4">
-              <div class="form-group">
-                <label class="form-control-label" for="input-player3Name"
-                  >Player3 InGameName</label
-                >
-                <input
-                  formControlName="player3Name"
-                  type="text"
-                  id="input-player3Name"
-                  class="form-control form-control-alternative"
-                  placeholder="Ex. DRSAJ"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="pl-lg-4">
-          <div class="row">
-            <div class="col-lg-4">
-              <div class="form-group">
-                <label class="form-control-label" for="input-player4Name"
-                  >Player4 InGameName</label
-                >
-                <input
-                  formControlName="player4Name"
-                  type="text"
-                  id="input-player4Name"
-                  class="form-control form-control-alternative"
-                  placeholder="Ex. DRSGyalzen"
-                />
-              </div>
-            </div>
-            <div class="col-lg-4">
-              <div class="form-group">
-                <label class="form-control-label" for="input-player5Name"
-                  >Player5 InGameName</label
-                >
-                <input
-                  formControlName="player5Name"
-                  type="text"
-                  id="input-player5Name"
-                  class="form-control form-control-alternative"
-                  placeholder="Ex. DRSMrBoro"
-                />
-              </div>
-            </div>
-            <div class="col-lg-4">
-              <div class="form-group">
-                <label class="form-control-label" for="input-player6Name"
-                  >Player6 InGameName</label
-                >
-                <input
-                  formControlName="player6Name"
-                  type="text"
-                  id="input-player6Name"
-                  class="form-control form-control-alternative"
-                  placeholder="Ex. DRSScoutOp"
-                />
+            <div class="row">
+              <div class="col-lg-4" formArrayName="players"
+                *ngFor="let player of service.teamForm.get('players')['controls']; let i = index">
+                <div [formGroupName]="i">
+
+                  <div class="form-group">
+                    <label class="form-control-label" for="playerName">Player {{i+1}} Name</label>
+                    <input formControlName="playerName" type="text" id="playerName"
+                      class="form-control form-control-alternative" placeholder="Player Name">
+                  </div>
+
+                  <div class="form-group">
+                    <input type="hidden" formControlName="isAlive" >
+                  </div>
+
+                  <div class="form-group">
+                    <input type="hidden" formControlName="isPlaying" >
+                  </div>
+
+                  <div class="form-group">
+                    <input type="hidden" formControlName="kills">
+                  </div>
+
+                  <div class="form-group">
+                    <input type="hidden" formControlName="isEliminatedMsg">
+                  </div>
+
+                </div>
               </div>
             </div>
           </div>
@@ -168,19 +94,13 @@
       </form>
     </div>
 
+
     <div class="card-header bg-white border-0">
       <div class="row align-items-center">
         <div class="col-md-12 text-right">
-          <button
-            type="button"
-            (click)="onSubmit()"
-            class="btn btn-sm btn-primary"
-          >
-            SAVE
-          </button>
+          <button type="button" (click)="onSubmit()" class="btn btn-sm btn-primary">SAVE</button>
         </div>
       </div>
     </div>
   </div>
 </div>
-

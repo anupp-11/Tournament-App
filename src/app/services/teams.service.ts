@@ -1,14 +1,14 @@
-import { HttpClient } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { FormBuilder, FormControl, Validators } from "@angular/forms";
-import { TeamModel } from "../models/team.model";
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ResponseModel, TeamModel } from '../models/team.model';
 
 export interface ITeamsService {
-  addTeam(team: TeamModel): Promise<TeamModel>;
-  editTeam(id: number, team: TeamModel): Promise<TeamModel>;
-  getTeam(id: number): Promise<TeamModel>;
+  addTeam(team: TeamModel): Promise<ResponseModel>;
+  editTeam(id: string, team: TeamModel): Promise<TeamModel>;
+  getTeam(id: string): Promise<TeamModel>;
   getAll(): Promise<TeamModel[]>;
-  deleteTeam(id: number): Promise<TeamModel>;
+  deleteTeam(id: string): Promise<TeamModel>;
 }
 
 @Injectable({
@@ -18,50 +18,62 @@ export class TeamsService implements ITeamsService {
   constructor(private fb: FormBuilder, private httpClient: HttpClient) {}
 
   teamForm = this.fb.group({
-    id: new FormControl("", [Validators.required, this.isValid]),
-    fullName: new FormControl("", [Validators.required, this.isValid]),
-    shortName: new FormControl("", [Validators.required, this.isValid]),
-    player1Name: new FormControl("", [Validators.required, this.isValid]),
-    player2Name: new FormControl("", [Validators.required, this.isValid]),
-    player3Name: new FormControl("", [Validators.required, this.isValid]),
-    player4Name: new FormControl("", [Validators.required, this.isValid]),
-    player5Name: new FormControl("", []),
-    player6Name: new FormControl("", []),
+    id: [null,[]],
+    fullName: ["",[]],
+    shortName: ["",[]],
+    teamLogo: ["",[]],
+    kills: [0,[]],
+    isEliminated:false,
+    isEliminatedMsg:false,
+    eliminationOrder:0,
+    players : this.fb.array([
+      this.addPlayerFormGroup()
+
+    ])  
   });
 
-  baseUri = "https://localhost:5001";
-
-  addTeam = async (team: TeamModel): Promise<TeamModel> => {
+  addPlayerFormGroup(): FormGroup{
+    return this.fb.group({
+      id: [null,[]],
+      playerName : ['',[]],
+      isAlive : [true,[]],
+      isPlaying: [true,[]],
+      kills : [0,[]],
+      domination: [false,[]],
+    })
+  }
+  addTeam = async (team: TeamModel): Promise<ResponseModel> => {
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
     const response = await this.httpClient
-      .post<TeamModel>("https://localhost:5001/Team/add", team)
+      .post<ResponseModel>("https://tournament-pubg.herokuapp.com/Team/add", team, {headers: headers})
       .toPromise();
     return response;
   };
 
-  getTeam = async (id: number): Promise<TeamModel> => {
+  getTeam = async (id: string): Promise<TeamModel> => {
     const response = await this.httpClient
-      .get<TeamModel>("https://localhost:5001/Team/get-by-id/" + id)
+      .get<TeamModel>("https://tournament-pubg.herokuapp.com/Team/get-by-id/" + id)
       .toPromise();
     return response;
   };
 
   getAll = async (): Promise<TeamModel[]> => {
     const response = await this.httpClient
-      .get<TeamModel[]>("https://localhost:5001/Team/get-all")
+      .get<ResponseModel>("https://tournament-pubg.herokuapp.com/Team/get-all")
+      .toPromise();
+    return response.result;
+  };
+
+  deleteTeam = async (id: string): Promise<TeamModel> => {
+    const response = await this.httpClient
+      .get<TeamModel>(`https://tournament-pubg.herokuapp.com/Team/delete/${id}`)
       .toPromise();
     return response;
   };
 
-  deleteTeam = async (id: number): Promise<TeamModel> => {
+  editTeam = async (id: string, team: TeamModel): Promise<TeamModel> => {
     const response = await this.httpClient
-      .delete<TeamModel>(`{baseUri}/Team/delete/{id}`)
-      .toPromise();
-    return response;
-  };
-
-  editTeam = async (id: number, team: TeamModel): Promise<TeamModel> => {
-    const response = await this.httpClient
-      .put<TeamModel>(`{baseUri}/Team/update/{id}`, team)
+      .post<TeamModel>(`https://tournament-pubg.herokuapp.com/Team/update`, team)
       .toPromise();
     return response;
   };
@@ -74,6 +86,31 @@ export class TeamsService implements ITeamsService {
   }
 
   populateForm(team) {
-    this.teamForm.setValue(team);
+    let form = this.fb.group({
+      id:team.id,
+      fullName: team.fullName,
+      shortName: team.shortName,
+      teamLogo: team.teamLogo,
+      kills:  team.kills,
+      isEliminated: team.isEliminated,
+      isEliminatedMsg: team.isEliminatedMsg,
+      eliminationOrder: team.eliminationOrder,
+      players : this.populatePlayer(team.players)
+    });
+    this.teamForm = form;
+  }
+  populatePlayer(players): FormArray{
+    let formArray = this.fb.array([]);
+    players.forEach(player => {
+      formArray.push(this.fb.group({
+        id: player.id,
+        playerName: player.playerName,
+        isAlive: player.isAlive,
+        isPlaying: player.isPlaying,
+        kills: player.kills,
+        domination: player.domination
+      }))
+    });
+    return formArray;
   }
 }
