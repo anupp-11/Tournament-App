@@ -21,7 +21,7 @@ export class GroupsService implements IGroupsService{
   addGroup = async (team: GroupModel): Promise<ResponseModel> => {
     const response = await this.httpClient
       .post<ResponseModel>(
-        'https://localhost:5001/Group/add',
+        'https://tournament-pubg.herokuapp.com/Group/add',
         team
       )
       .toPromise();
@@ -31,7 +31,7 @@ export class GroupsService implements IGroupsService{
   getGroup = async (id: string): Promise<GroupModel> => {
     const response = await this.httpClient
       .get<ResponseModel>(
-        'https://localhost:5001/Group/get-by-id/' + id
+        'https://tournament-pubg.herokuapp.com/Group/get-by-id/' + id
       )
       .toPromise();
     return response.result;
@@ -39,7 +39,7 @@ export class GroupsService implements IGroupsService{
 
   getAll = async (): Promise<GroupModel[]> => {
     const response = await this.httpClient
-      .get<ResponseModel>('https://localhost:5001/Group/get-all')
+      .get<ResponseModel>('https://tournament-pubg.herokuapp.com/Group/get-all')
       .toPromise();
     return response.result;
   };
@@ -47,7 +47,7 @@ export class GroupsService implements IGroupsService{
   deleteGroup = async (id: string): Promise<GroupModel> => {
     const response = await this.httpClient
       .get<GroupModel>(
-        `https://localhost:5001/Group/delete/${id}`)
+        `https://tournament-pubg.herokuapp.com/Group/delete/${id}`)
       .toPromise();
     return response;
   };
@@ -55,7 +55,7 @@ export class GroupsService implements IGroupsService{
   editGroup = async (id: string, team: GroupModel): Promise<GroupModel> => {
     const response = await this.httpClient
       .post<GroupModel>(
-        'https://localhost:5001/Group/update/' + id,
+        'https://tournament-pubg.herokuapp.com/Group/update/' + id,
         team
       )
       .toPromise();

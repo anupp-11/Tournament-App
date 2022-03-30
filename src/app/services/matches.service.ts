@@ -21,7 +21,7 @@ export class MatchService implements IMatchsService{
   addMatch = async (match: MatchModel): Promise<MatchModel> => {
     const response = await this.httpClient
       .post<ResponseModel>(
-        'https://localhost:5001/Match/add',
+        'https://tournament-pubg.herokuapp.com/Match/add',
         match
       )
       .toPromise();
@@ -31,7 +31,7 @@ export class MatchService implements IMatchsService{
   getMatch = async (id: string): Promise<MatchModel> => {
     const response = await this.httpClient
       .get<ResponseModel>(
-        'https://localhost:5001/Match/get-by-id/' + id
+        'https://tournament-pubg.herokuapp.com/Match/get-by-id/' + id
       )
       .toPromise();
     return response.result;
@@ -39,7 +39,7 @@ export class MatchService implements IMatchsService{
 
   getAll = async (): Promise<MatchModel[]> => {
     const response = await this.httpClient
-      .get<ResponseModel>('https://localhost:5001/Match/get-all')
+      .get<ResponseModel>('https://tournament-pubg.herokuapp.com/Match/get-all')
       .toPromise();
     return response.result;
   };
@@ -47,7 +47,7 @@ export class MatchService implements IMatchsService{
   deleteMatch = async (id: string): Promise<MatchModel> => {
     const response = await this.httpClient
       .delete<MatchModel>(
-        'https://localhost:5001/Match/delete/' + id
+        'https://tournament-pubg.herokuapp.com/Match/delete/' + id
       )
       .toPromise();
     return response;
@@ -56,7 +56,7 @@ export class MatchService implements IMatchsService{
   editMatch = async (id: string, match: MatchModel): Promise<MatchModel> => {
     const response = await this.httpClient
       .post<MatchModel>(
-        'https://localhost:5001/Match/update',
+        'https://tournament-pubg.herokuapp.com/Match/update',
         match
       )
       .toPromise();

@@ -30,7 +30,7 @@ export class SettingsService implements ISettingsService{
   addSetting = async (setting: SettingModel): Promise<SettingModel> => {
     const response = await this.httpClient
       .post<SettingModel>(
-        'https://localhost:5001/SystemSetting/save',
+        'https://tournament-pubg.herokuapp.com/SystemSetting/save',
         setting
       )
       .toPromise();
@@ -40,7 +40,7 @@ export class SettingsService implements ISettingsService{
  
   get = async (): Promise<SettingModel> => {
     const response = await this.httpClient
-      .get<ResponseModel>('https://localhost:5001/SystemSetting/get')
+      .get<ResponseModel>('https://tournament-pubg.herokuapp.com/SystemSetting/get')
       .toPromise();
     return response.result;
   };

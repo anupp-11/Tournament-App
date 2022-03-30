@@ -45,35 +45,35 @@ export class TeamsService implements ITeamsService {
   addTeam = async (team: TeamModel): Promise<ResponseModel> => {
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
     const response = await this.httpClient
-      .post<ResponseModel>("https://localhost:5001/Team/add", team, {headers: headers})
+      .post<ResponseModel>("https://tournament-pubg.herokuapp.com/Team/add", team, {headers: headers})
       .toPromise();
     return response;
   };
 
   getTeam = async (id: string): Promise<TeamModel> => {
     const response = await this.httpClient
-      .get<TeamModel>("https://localhost:5001/Team/get-by-id/" + id)
+      .get<TeamModel>("https://tournament-pubg.herokuapp.com/Team/get-by-id/" + id)
       .toPromise();
     return response;
   };
 
   getAll = async (): Promise<TeamModel[]> => {
     const response = await this.httpClient
-      .get<ResponseModel>("https://localhost:5001/Team/get-all")
+      .get<ResponseModel>("https://tournament-pubg.herokuapp.com/Team/get-all")
       .toPromise();
     return response.result;
   };
 
   deleteTeam = async (id: string): Promise<TeamModel> => {
     const response = await this.httpClient
-      .get<TeamModel>(`https://localhost:5001/Team/delete/${id}`)
+      .get<TeamModel>(`https://tournament-pubg.herokuapp.com/Team/delete/${id}`)
       .toPromise();
     return response;
   };
 
   editTeam = async (id: string, team: TeamModel): Promise<TeamModel> => {
     const response = await this.httpClient
-      .post<TeamModel>(`https://localhost:5001/Team/update`, team)
+      .post<TeamModel>(`https://tournament-pubg.herokuapp.com/Team/update`, team)
       .toPromise();
     return response;
   };
