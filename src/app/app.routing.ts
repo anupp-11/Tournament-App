@@ -7,6 +7,7 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
 import { LoginComponent } from './pages/login/login.component';
 import { ResultComponent } from './components/result/result.component';
+import { AuthGuard } from './services/auth.guard';
 
 const routes: Routes =[
   {
@@ -14,13 +15,19 @@ const routes: Routes =[
     component: LoginComponent,
   },
   {
+    path: '/login',
+    component: LoginComponent,
+  },
+  {
     path: 'dashboard',
     redirectTo: 'dashboard',
     pathMatch: 'full',
+    canActivate: [AuthGuard]
   },
   {
     path: 'result/:id',
-    component:ResultComponent
+    component:ResultComponent,
+    canActivate: [AuthGuard]
     
   },
    {
@@ -55,7 +62,7 @@ const routes: Routes =[
       useHash: true
     })
   ],
-  exports: [
-  ],
+  exports: [RouterModule],
+  providers: [AuthGuard]
 })
 export class AppRoutingModule { }

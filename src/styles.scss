@@ -16,6 +16,16 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     font-family: Bebas;
     src: url(assets/fonts/nucleo/BebasNeue-Regular.ttf) format('truetype');
 }
+
+@font-face {
+    font-family: Zuume;
+    src: url(assets/fonts/nucleo/ZuumeCut-Regular.ttf) format('truetype');
+}
+
 .Bebas{
     font-family: Bebas;
+}
+
+.Zuume{
+    font-family: Zuume;
 }

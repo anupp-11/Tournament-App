@@ -1,38 +1,38 @@
 <div style="height: 100%;width: 100%;display: flex;flex-direction: row;align-items: flex-end;justify-content: flex-end;">
     <div style="width: 250px;height: 710px;" [ngStyle]="{'background-image': getUrl()}">
         <div
-            style="width: 250px;height: 40px;display: flex;flex-direction:row ;align-items: center;justify-content: center;font-family: Bebas;font-size: x-large;">
-            <h2 style="margin-top: 6px;color:white">Alive</h2>
+            style="width: 250px;height: 51px;display: flex;flex-direction:row ;align-items: center;justify-content: center;font-family: Zuume;font-size: x-large;">
+            <h2 style="margin-top: 6px;color:white"> </h2>
         </div>
         <div
-            style="width: 250px;height: 30px;display: flex;flex-direction:row ;align-items: center;justify-content: center;">
-            <span style="width: 40%;padding-left: 20px;font-family: Bebas;font-size: large;">
-                <h2 style="margin-top: 8px;">TEAM</h2>
+            style="width: 250px;height: 35px;display: flex;flex-direction:row ;align-items: center;justify-content: center;">
+            <span style="width: 40%;padding-left: 20px;font-family: Zuume;font-size: large;">
+                <h2 style="margin-top: 8px;"> </h2>
             </span>
-            <span style="width: 60%;padding-left: 20px;font-family: Bebas;font-size: large;">
-                <h2 style="margin-top: 8px;">PTS</h2>
+            <span style="width: 60%;padding-left: 20px;font-family: Zuume;font-size: large;">
+                <h2 style="margin-top: 8px;"> </h2>
             </span>
         </div>
         <div *ngFor="let team of match.groups[0].teams;let teamindex = index;">
             <div style="width: 250px;height:40px;display:flex;flex-direction:row">
-                <span style="width: 40px;height: 40px;display: flex;flex-direction: row;align-items: center;justify-content: center;">
+                <span style="width: 38px;height: 38px;display: flex;flex-direction: row;align-items: center;justify-content: center;">
                     <img src = "{{team.teamLogo}}" style="height: 38px;width: 38px;" />
                 </span>
-                <span style="width: 60px;padding-left: 20px;margin-top: 6px; font-family: Bebas;font-size: x-large;" [ngStyle]="{'color': (team.isEliminated) ? settings.secondaryColor : settings.primaryColor}">
-                    <p>{{team.shortName}}</p>
+                <span style="width: 60px;padding-left: 20px;margin-top: 4px; font-family: Zuume;font-size: x-large;" [ngStyle]="{'color': (team.isEliminated) ? settings.secondaryColor : settings.primaryColor}">
+                    <h1>{{team.shortName}}</h1>
                 </span>
 
 
                 <span
-                    style="width: 150px;padding-left: 20px;display: flex;flex-direction:row ;align-items: center;justify-content: space-between;">
-                    <span style="width: 30%;margin-top: 14px;font-family: Bebas;font-size:x-large;">
-                        <p>{{getTotalKills(teamindex)}}</p>
+                    style="width: 150px;padding-left: 45px;display: flex;flex-direction:row ;align-items: center;justify-content: space-between;">
+                    <span style="width: 30%;margin-top: 14px;font-family: Zuume;font-size:x-large;">
+                        <h1>{{getTotalKills(teamindex)}}</h1>
                     </span>
-                    <div style="width: 70%;display: flex;flex-direction: row;">
+                    <div style="width: 70%;display: flex;flex-direction: row;padding-left: 25px;">
                         <div *ngFor="let player of team.players;">
                             <div *ngIf="player.isPlaying && player.isAlive">
                                 <div
-                                    style="height: 20px;width: 5px;margin-inline: 2px;" 
+                                    style="height: 25px;width: 5px;margin-inline: 2px;" 
                                     [ngStyle]="{'background-color': settings.aliveColor}">
 
                                 </div>
@@ -43,7 +43,7 @@
 
                             <div *ngIf="player.isPlaying && !player.isAlive">
                                 <div
-                                    style="height: 20px;width: 5px;margin-inline: 2px;"
+                                    style="height: 25px;width: 5px;margin-inline: 2px;"
                                     [ngStyle]="{'background-color': settings.deadColor}">
 
                                 </div>

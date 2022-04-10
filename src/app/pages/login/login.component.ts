@@ -7,6 +7,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit, OnDestroy {
+
+  email: string;
+  password: string;
+  errorMsg: string = null;
   constructor(private router: Router,) {}
 
   ngOnInit() {
@@ -14,7 +18,17 @@ export class LoginComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
   }
   onLoginPress(){
-    this.router.navigate(['/dashboard']);
+    if(this.email === "moonlightofficial@admin.com" && this.password === "moonlight@77"){
+      this.router.navigate(['/dashboard']);
+      //save user to local storage
+      localStorage.setItem('user', JSON.stringify({
+        isAuthenticated: true
+      }));
+
+    }else{
+      this.errorMsg = "Please enter valid credentials";
+    }
+
   }
 
 }

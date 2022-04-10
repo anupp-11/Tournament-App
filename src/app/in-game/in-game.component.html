@@ -8,11 +8,23 @@
 <!-- Page content -->
 <div class="container-fluid mt--7">
 
+  <!-- Create a circular processing while the isProcessing in absolute center of the screen-->
+  
+
+  
+
 
   <!-- Table -->
   <div class="row">
+   
     <div class="col">
-      <div class="card shadow">
+      <div *ngIf="isProcessing"  class="spinner-container" style="position: absolute;z-index: 10;left: 50%;top: 50%;transform: translate(-50%,-50%);">
+        <mat-progress-spinner
+          color="primary" 
+          mode="indeterminate">
+        </mat-progress-spinner>
+      </div>
+      <div *ngIf="!isProcessing" class="card shadow">
         <div class="card-header border-0">
           <div class="row align-items-center">
             <div class="col-4">
@@ -84,13 +96,6 @@
                 </mat-progress-spinner>
               </div> -->
 
-  <div class="card-header bg-white border-0">
-    <div class="row align-items-center">
-      <div class="col-md-12 text-right">
-        <!-- <button type="button" (click)="onSubmit()" class="btn btn-sm btn-primary">SAVE</button> -->
-        <button type="button" class="btn btn-sm btn-primary" [routerLink]="['/ingame',id]">Start</button>
-      </div>
-    </div>
-  </div>
+  
 
 </div>

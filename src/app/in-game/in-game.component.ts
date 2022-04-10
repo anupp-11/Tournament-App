@@ -24,6 +24,7 @@ export class InGameComponent implements OnInit {
 
   dataSource: MatTableDataSource<TeamModel>;
   displayedColumns: string[] = ['id', 'name', 'players'];
+  isProcessing: boolean = false;
   
 
   ngOnInit() {
@@ -72,8 +73,8 @@ export class InGameComponent implements OnInit {
   }
 
   async updateMatch(){
+    this.isProcessing = true;
     const resp = await this.matchService.editMatch(this.match.id, this.match);
-    console.log("Response: ",resp);
+    this.isProcessing = false;
   }
-
 }

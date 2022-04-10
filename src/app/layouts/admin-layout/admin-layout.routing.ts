@@ -8,7 +8,6 @@ import { TablesComponent } from '../../pages/tables/tables.component';
 import { PlayComponent } from 'src/app/pages/play/play.component';
 import { StartMatchComponent } from 'src/app/components/start-match/start-match.component';
 import { InGameComponent } from 'src/app/in-game/in-game.component';
-import { ResultComponent } from 'src/app/components/result/result.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent },
@@ -19,5 +18,6 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'play',           component: PlayComponent },
     { path: 'start/:id',      component: StartMatchComponent},
     { path: 'ingame/:id',      component: InGameComponent},
-    //{ path: 'result/:id',      component: ResultComponent},
 ];
+
+
