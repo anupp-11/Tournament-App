@@ -90,6 +90,7 @@ export class TeamFormComponent implements OnInit {
       if(response.isSuccess){
         this.isProcessing = false;
         this.notificationService.success('Team Added Successfully');
+        this.service.teamForm.reset();
         this.onClose();
       }else{
         this.isProcessing = false;

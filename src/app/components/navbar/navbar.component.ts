@@ -33,4 +33,12 @@ export class NavbarComponent implements OnInit {
     return 'Dashboard';
   }
 
+  logout() {
+    //clear localstore and redirect to login
+    this.router.navigate(['']);
+    //clear user from local storage
+    localStorage.removeItem('user');
+    //localStorage.clear();
+  }
+
 }

@@ -32,6 +32,8 @@ export class DashboardComponent implements OnInit {
       if (response) {
         console.log("Response", response);
         this.settings = response;
+        //Save the settings to local storage
+        localStorage.setItem("settings", JSON.stringify(this.settings));
         this.service.populateForm(this.settings);
         this.isProcessing = false;
       }
@@ -40,6 +42,7 @@ export class DashboardComponent implements OnInit {
       console.log(error);
       this.isProcessing = false;
     }
+    this.isProcessing = false;
   }
 
 
@@ -92,27 +95,28 @@ export class DashboardComponent implements OnInit {
 
   async onSubmit() {
 
-
+    this.isProcessing = true;
     this.setting = Object.assign(this.setting, this.service.settingForm.value);
     this.setting.aliveCounterBgImage = this.aliveImg;
     this.setting.dominationBgImage = this.dominationImg;
     this.setting.eliminatedBgImage = this.eliminatedImg;
     const c = this.setting;
     console.log("Settings", c);
-    const response = await this.service.addSetting(this.setting);
-    console.log("Response", response);
-
-    // if (!this.service.settingForm.get('id').value) {
-
-    //   this.addTeam(this.team);
-    //   this.notificationService.success('Team Added Successfully');
-    //   console.log("Add Vitra");
-    // } else {
-    //   console.log("Inside update");
-    //   this.editTeam(this.team);
-    //   this.notificationService.success('Team Updated Successfully');
-    // }
-
+    try {
+      const response = await this.service.addSetting(this.setting);
+      if (response) {
+        this.isProcessing = false;
+        this.notificationService.success("Settings updated successfully");
+        //reload window
+        window.location.reload();
+      }
+    } catch (error) {
+      console.log("Error", error);
+      this.isProcessing = false;
+      this.notificationService.warn("Error updating settings");
+    }
+    
+    this.isProcessing = false;
   }
 
 

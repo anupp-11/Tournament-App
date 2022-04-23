@@ -44,7 +44,7 @@ export class InGameComponent implements OnInit {
 
   incrementKill(teamId, playerId) {
     this.match.groups[0].teams[teamId].players[playerId].kills++;
-    this.updateMatch();
+    //this.updateMatch();
   }
 
 
@@ -54,7 +54,7 @@ export class InGameComponent implements OnInit {
       this.match.groups[0].teams[teamId].players[playerId].kills--;
     }
 
-    this.updateMatch();
+    //this.updateMatch();
   }
   async toggleAlive(){
     this.match.groups[0].teams.forEach((element,index) => {
@@ -69,7 +69,7 @@ export class InGameComponent implements OnInit {
       
       }
     });
-    await this.updateMatch();
+    //await this.updateMatch();
   }
 
   async updateMatch(){

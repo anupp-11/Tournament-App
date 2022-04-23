@@ -27,8 +27,6 @@ const routes: Routes =[
   {
     path: 'result/:id',
     component:ResultComponent,
-    canActivate: [AuthGuard]
-    
   },
    {
     path: '',
@@ -38,7 +36,9 @@ const routes: Routes =[
         path: '',
         loadChildren: () => import('src/app/layouts/admin-layout/admin-layout.module').then(m => m.AdminLayoutModule)
       }
-    ]
+    ],
+    canActivate: [AuthGuard]
+    
   }, {
     path: '',
     component: AuthLayoutComponent,
@@ -47,7 +47,8 @@ const routes: Routes =[
         path: '',
         loadChildren: () => import('src/app/layouts/auth-layout/auth-layout.module').then(m => m.AuthLayoutModule)
       }
-    ]
+    ],
+    canActivate: [AuthGuard]
   }, {
     path: '**',
     redirectTo: 'dashboard'

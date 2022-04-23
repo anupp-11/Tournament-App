@@ -12,6 +12,7 @@ import { MapsComponent } from '../../pages/maps/maps.component';
 import { UserProfileComponent } from '../../pages/user-profile/user-profile.component';
 import { TablesComponent } from '../../pages/tables/tables.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AuthGuard } from 'src/app/services/auth.guard';
 // import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
@@ -25,13 +26,15 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     MaterialModule,
     ReactiveFormsModule
   ],
+  providers: [AuthGuard],
   declarations: [
     DashboardComponent,
     UserProfileComponent,
     TablesComponent,
     IconsComponent,
     MapsComponent
-  ]
+  ],
+  
 })
 
 export class AdminLayoutModule {}

@@ -16,7 +16,7 @@ export class AlertMessageComponent implements OnInit {
 
 
   async ngOnInit() {
-    const response = await this.settingService.get();
+    const response = JSON.parse(localStorage.getItem('settings'));
     if(response){
       this.settings = response;
     }

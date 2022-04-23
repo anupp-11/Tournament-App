@@ -13,10 +13,18 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanDeactivate<u
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
       //get authenticated information from localstorage
       const user = JSON.parse(localStorage.getItem('user'));
-      //if user is authenticated, return true
-      if (!user.isAuthenticated) {
+      console.log("USer",user);
+      debugger;
+      if (!user) {
+        console.log("No USer");
         this.router.navigate(['/login']);
     }
+      //if user is authenticated, return true
+      if (!user.isAuthenticated) {
+        console.log("No auth USer");
+        this.router.navigate(['/login']);
+    }
+    debugger;
     //return isAuthenticated;
 
     return true;

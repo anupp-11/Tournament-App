@@ -8,16 +8,17 @@ import { TablesComponent } from '../../pages/tables/tables.component';
 import { PlayComponent } from 'src/app/pages/play/play.component';
 import { StartMatchComponent } from 'src/app/components/start-match/start-match.component';
 import { InGameComponent } from 'src/app/in-game/in-game.component';
+import { AuthGuard } from 'src/app/services/auth.guard';
 
 export const AdminLayoutRoutes: Routes = [
-    { path: 'dashboard',      component: DashboardComponent },
-    { path: 'user-profile',   component: UserProfileComponent },
-    { path: 'tables',         component: TablesComponent },
-    { path: 'icons',          component: IconsComponent },
-    { path: 'maps',           component: MapsComponent },
-    { path: 'play',           component: PlayComponent },
-    { path: 'start/:id',      component: StartMatchComponent},
-    { path: 'ingame/:id',      component: InGameComponent},
+    { path: 'dashboard',      component: DashboardComponent, canActivate: [AuthGuard] },
+    { path: 'user-profile',   component: UserProfileComponent,canActivate: [AuthGuard] },
+    { path: 'tables',         component: TablesComponent,canActivate: [AuthGuard]  },
+    { path: 'icons',          component: IconsComponent,canActivate: [AuthGuard]  },
+    { path: 'maps',           component: MapsComponent ,canActivate: [AuthGuard] },
+    { path: 'play',           component: PlayComponent,canActivate: [AuthGuard]  },
+    { path: 'start/:id',      component: StartMatchComponent,canActivate: [AuthGuard] },
+    { path: 'ingame/:id',      component: InGameComponent,canActivate: [AuthGuard] },
 ];
 
 

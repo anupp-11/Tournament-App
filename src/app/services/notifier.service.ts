@@ -32,16 +32,4 @@ export class NotifierService {
       });
     }
   }
-
-  // showFirstBloodNotification(displayMessage:any){
-  //   this.snackBar.openFromComponent(AlertMessageComponent,{
-  //     data:{
-  //       message: displayMessage
-  //     },
-  //     duration:5000,
-  //     horizontalPosition:'left',
-  //     verticalPosition:'bottom',
-  //     panelClass:'domination'
-  //   });
-  // }
 }

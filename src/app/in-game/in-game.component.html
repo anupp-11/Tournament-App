@@ -18,13 +18,8 @@
   <div class="row">
    
     <div class="col">
-      <div *ngIf="isProcessing"  class="spinner-container" style="position: absolute;z-index: 10;left: 50%;top: 50%;transform: translate(-50%,-50%);">
-        <mat-progress-spinner
-          color="primary" 
-          mode="indeterminate">
-        </mat-progress-spinner>
-      </div>
-      <div *ngIf="!isProcessing" class="card shadow">
+      
+      <div  class="card shadow">
         <div class="card-header border-0">
           <div class="row align-items-center">
             <div class="col-4">
@@ -45,6 +40,15 @@
               <div class="col-4">
                 <h3 class="mb-0">{{team.fullName}} - {{team.shortName}}</h3>
               </div>
+              <button (click)="updateMatch()" class="btn btn-sm btn-primary">Update
+
+                <div *ngIf="isProcessing"  class="spinner-container" >
+                  <mat-progress-spinner
+                    color="primary" 
+                    mode="indeterminate">
+                  </mat-progress-spinner>
+                </div>
+              </button>
             </div>
           </div>
           <div class="card-body border-0">

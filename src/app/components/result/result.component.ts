@@ -49,7 +49,7 @@ export class ResultComponent implements OnInit {
       console.log(error);
     }
 
-  const source = interval(1500);
+  const source = interval(2000);
     this.subscription = source.subscribe(val => this.getMatch(this.id));
   }
 
